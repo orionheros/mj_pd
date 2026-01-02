@@ -3,7 +3,6 @@
 # pd/ui/main_window.py
 
 import sqlite3
-from pathlib import Path
 
 from PyQt6.QtWidgets import (
     QMainWindow, 
