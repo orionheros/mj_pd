@@ -1,0 +1,15 @@
+PyQt6==6.10.0
+PyQt6-Qt6==6.10.0
+PyQt6_sip==13.10.2
+pyqtgraph==0.14.0
+numpy==2.3.3
+pandas==2.3.2
+matplotlib==3.10.8
+openpyxl==3.1.5
+requests==2.32.4
+pillow==11.3.0
+beautifulsoup4==4.13.4
+python-dotenv==1.1.1
+typing_extensions==4.14.1
+setuptools==80.9.0
+wheel==0.45.1
