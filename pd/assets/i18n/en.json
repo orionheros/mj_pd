@@ -1,0 +1,97 @@
+
+{
+    "app": {
+        "title": "PDApp",
+        "label": "Welcome to the PD Application!"
+    },
+    "menu": {
+        "file": "File",
+        "edit": "Edit",
+        "view": "View",
+        "help": "Help",
+        "settings": "Settings",
+        "exit": "Exit",
+        "add_new": "Add New Unit Pump",
+        "add_model": "Add Unit Pump Model",
+        "delete_unit": "Delete Unit Pump"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "theme": "Theme",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "language_tooltip": "Restart the application to apply language changes."
+    },
+    "errors": {
+        "startup_failed": "Failed to start the application.",
+        "title": "A critical error has occurred"
+    },
+    "buttons": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "add": "Add",
+        "confirm": "Confirm",
+        "retry": "Retry",
+        "save": "Add Another",
+        "save_add_tooltip": "Save and add another"
+    },
+    "add_new": {
+        "title": "Add New Unit Pump",
+        "label": "Add a new unit pump by entering its details:",
+        "instructions": "Enter the details of the new unit pump in the fields above and click 'Add' to save it. If the appropriate model is not listed, first add it in the 'Add Unit Pump Model' section.",
+        "info_ESI": "ESI opening pressure for series: \n*000: 288 bar\n*200: 292 bar\n*300: 277 bar\n*400: 263 bar"
+    },
+    "fields": {
+        "model_id": "Injection Number",
+        "opening_pressure": "ESI Opening Pressure (bar)",
+        "washer1": "Lower Spring Plate Thickness (mm)",
+        "washer2": "Upper Spring Plate Thickness (mm)",
+        "spring_length": "Spring Length (mm)",
+        "final_pressure": "Obtained Pressure (bar)",
+        "model_name": "Model Number"
+    },
+
+
+    "add_model": {
+        "title": "Add Unit Pump Model",
+        "label": "Add a new unit pump model:",
+        "error_empty_name": "Please enter a model number!",
+        "success": "Unit pump model added successfully.",
+        "error_generic": "An error occurred while adding the unit pump model."
+    },
+    "table": {
+        "model_id": "No",
+        "model_name": "Pump No",
+        "opening_pressure": "init. pres.",
+        "washer1": "low. plate",
+        "washer2": "up. plate",
+        "spring_length": "spring",
+        "final_pressure": "obt. pres.",
+        "search": "Search by model number (partial)..."
+    },
+    "charts": {
+        "title": "Unit Pump Chart",
+        "podkladla_count_x": "Number of Plates",
+        "podkladla_thickness_y": "Plate Thickness (0.01 mm)",
+        "chart1_title": "Thickness Distribution",
+        "chart1_title_upper": "for Upper Spring Plate",
+        "chart1_title_lower": "for Lower Spring Plate",
+        "title_area": {
+            "one": "Data for {n} unit pump of model {model_id}",
+            "other": "Data for {n} unit pumps of model {model_id}"
+        },
+        "tool_tip_x": "Number of Plates: ",
+        "tool_tip_y": "Plate Thickness: ",
+        "chart_window_title": "Detailed Chart"
+    },
+    "delete_unit": {
+        "title": "Delete Unit Pump",
+        "confirmation": "Are you sure you want to delete the selected unit pump?",
+        "no_selection": "No unit pump selected for deletion.",
+        "delete_button": "Delete",
+        "cancel_button": "Cancel",
+        "deleted_message": "Unit pump deleted successfully.",
+        "error_generic": "An error occurred while deleting the unit pump"
+    }
+}

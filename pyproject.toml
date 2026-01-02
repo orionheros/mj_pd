@@ -1,0 +1,15 @@
+
+[project]
+name = "pd"
+version = "0.1.0"
+description = "PD - analysis of unit injectors"
+requires-python = ">=3.10"
+authors = [
+    { name = "Mateusz Jamróz" }
+]
+
+[project.scripts]
+pd = "pd.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

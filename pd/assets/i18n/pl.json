@@ -1,0 +1,97 @@
+
+{
+    "app": {
+        "title": "PDApp",
+        "label": "Witaj w aplikacji PD!"
+    },
+    "menu": {
+        "file": "Plik",
+        "edit": "Edycja",
+        "view": "Widok",
+        "help": "Pomoc",
+        "settings": "Ustawienia",
+        "exit": "Wyjście",
+        "add_new": "Dodaj nowy pompowtryskiwacz",
+        "add_model": "Dodaj model pompowtryskiwacza",
+        "delete_unit": "Usuń pompowtryskiwacz"
+    },
+    "settings": {
+        "title": "Ustawienia",
+        "language": "Język",
+        "theme": "Motyw",
+        "ok": "OK",
+        "cancel": "Anuluj",
+        "language_tooltip": "Zrestartuj aplikację, aby zastosować zmiany języka."
+    },
+    "errors": {
+        "startup_failed": "Nie udało się uruchomić aplikacji.",
+        "title": "Wystąpił krytyczny błąd"
+    },
+    "buttons": {
+        "ok": "OK",
+        "cancel": "Anuluj",
+        "add": "Dodaj",
+        "confirm": "Zatwierdź",
+        "retry": "Ponów próbę",
+        "save": "Dodaj kolejny",
+        "save_add_tooltip": "Zapisz i dodaj kolejny"
+    },
+    "add_new": {
+        "title": "Dodawanie pompowtryskiwacza",
+        "label": "Dodaj nowy pompowtryskiwacz, wpisując jego dane:",
+        "instructions": "Wprowadź szczegóły nowego pompowtryskiwacza w powyższych polach i kliknij 'Dodaj', aby go zapisać. Jeżeli brak na liście odpowiedniego modelu, najpierw dodaj go w sekcji 'Dodaj model pompowtryskiwacza'.",
+        "info_ESI": "ESI ciśnienie otwarcia dla serii: \n*000: 288 bar\n*200: 292 bar\n*300: 277 bar\n*400: 263 bar"
+    },
+    "fields": {
+        "model_id": "Numer wtrysku",
+        "opening_pressure": "Ciśnienie otwarcia ESI (bar)",
+        "washer1": "Grubość dolnej podkładki (mm)",
+        "washer2": "Grubość górnej podkładki (mm)",
+        "spring_length": "Długość sprężyny (mm)",
+        "final_pressure": "Ciśnienie otrzymane (bar)",
+        "model_name": "Numer modelu"
+    },
+
+    
+    "add_model": {
+        "title": "Dodawanie modelu pompowtryskiwacza",
+        "label": "Dodaj nowy model pompowtryskiwacza:",
+        "error_empty_name": "Wprowadź numer modelu!",
+        "success": "Model pompowtryskiwacza został pomyślnie dodany.",
+        "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza."
+    },
+    "table": {
+        "model_id": "No",
+        "model_name": "Nr modelu",
+        "opening_pressure": "ciś. pocz.",
+        "washer1": "p. dolna",
+        "washer2": "p. górna",
+        "spring_length": "spr.",
+        "final_pressure": "ciś. otrz.",
+        "search": "Wyszukaj po numerze (fragmencie) modelu..."
+    },
+    "charts": {
+        "title": "Wykres pompowtryskiwaczy",
+        "podkladla_count_x": "Liczba podkładek",
+        "podkladla_thickness_y": "Grubość podkładek (0.01 mm)",
+        "chart1_title": "Rozkład grubości",
+        "chart1_title_upper": "dla górnej podkładki",
+        "chart1_title_lower": "dla dolnej podkładki",
+        "title_area": {
+            "one": "Dane dla {n} sztuki pompowtryskiwacza modelu {model_id}",
+            "few": "Dane dla {n} sztuk pompowtryskiwaczy modelu {model_id}"
+        },
+        "tool_tip_x": "Liczba podkładek: ",
+        "tool_tip_y": "Grubość podkładek: ",
+        "chart_window_title": "Szczegółowy wykres"
+    },
+    "delete_unit": {
+        "title": "Usuwanie pompowtryskiwacza",
+        "confirmation": "Czy na pewno chcesz usunąć wybrany pompowtryskiwacz?",
+        "no_selection": "Nie wybrano pompowtryskiwacza do usunięcia.",
+        "delete_button": "Usuń",
+        "cancel_button": "Anuluj",
+        "deleted_message": "Pompowtryskiwacz został pomyślnie usunięty.",
+        "error_generic": "Wystąpił błąd podczas usuwania pompowtryskiwacza"
+    }
+}

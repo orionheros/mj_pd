@@ -1,0 +1,29 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Python
+/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+
+# VSCode
+.vscode/__pycache__/
+.vscode/*.pyc
+moja_pomoc.txt
+my_help.txt
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files
+pip-selfcheck.json
+.python-version
+.env/
