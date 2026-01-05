@@ -14,6 +14,7 @@ class StatsPanel(QWidget):
     def __init__(self, ctx, parent=None):
         super().__init__(parent)
         self.ctx = ctx
+        self.i18n = ctx.i18n
 
         outer = QVBoxLayout(self)
         outer.setContentsMargins(0, 0, 0, 0)
@@ -30,21 +31,22 @@ class StatsPanel(QWidget):
         self.median_upper = QLabel()
 
         self.common = QLabel()
+        self.common.setToolTip(self.i18n.t("stats_panel.common_config_tooltip"))
 
-        layout.addRow("Average Lower:", self.avg_lower)
-        layout.addRow("Average Spring:", self.avg_spring)
-        layout.addRow("Average Upper:", self.avg_upper)
-        layout.addRow("Average Total:", self.avg_total)
-
-        layout.addRow("", QLabel(""))  # Spacer
-
-        layout.addRow("Median Lower:", self.median_lower)
-        layout.addRow("Median Upper:", self.median_upper)
+        layout.addRow(self.i18n.t("stats_panel.average_lower"), self.avg_lower)
+        layout.addRow(self.i18n.t("stats_panel.average_spring"), self.avg_spring)
+        layout.addRow(self.i18n.t("stats_panel.average_upper"), self.avg_upper)
+        layout.addRow(self.i18n.t("stats_panel.average_total"), self.avg_total)
 
         layout.addRow("", QLabel(""))  # Spacer
 
-        layout.addRow("Common Config:", self.common)
+        layout.addRow(self.i18n.t("stats_panel.median_lower"), self.median_lower)
+        layout.addRow(self.i18n.t("stats_panel.median_upper"), self.median_upper)
 
+        layout.addRow("", QLabel(""))  # Spacer
+
+        layout.addRow(self.i18n.t("stats_panel.common_config"), self.common)
+        
         outer.addLayout(layout)
         outer.addStretch(1)
 

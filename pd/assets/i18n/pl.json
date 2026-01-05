@@ -93,5 +93,15 @@
         "cancel_button": "Anuluj",
         "deleted_message": "Pompowtryskiwacz został pomyślnie usunięty.",
         "error_generic": "Wystąpił błąd podczas usuwania pompowtryskiwacza"
+    },
+    "stats_panel": {
+        "average_lower": "Średnia grubość dolnej:",
+        "average_spring": "Średnia grubość sprężyny:",
+        "average_upper": "Średnia grubość górnej:",
+        "average_total": "Średnia grubość łącznie:",
+        "median_lower": "Mediana dolnej:",
+        "median_upper": "Mediana górnej:",
+        "common_config": "Wspólna konfiguracja:",
+        "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła."
     }
 }

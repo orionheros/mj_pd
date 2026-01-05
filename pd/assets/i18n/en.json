@@ -93,5 +93,15 @@
         "cancel_button": "Cancel",
         "deleted_message": "Unit pump deleted successfully.",
         "error_generic": "An error occurred while deleting the unit pump"
+    },
+    "stats_panel": {
+        "average_lower": "Average Lower Thickness:",
+        "average_spring": "Average Spring Thickness:",
+        "average_upper": "Average Upper Thickness:",
+        "average_total": "Average Total Thickness:",
+        "median_lower": "Median Lower Thickness:",
+        "median_upper": "Median Upper Thickness:",
+        "common_config": "Common Config:",
+        "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here."
     }
 }
