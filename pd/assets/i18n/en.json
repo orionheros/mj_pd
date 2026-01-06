@@ -34,7 +34,8 @@
         "confirm": "Confirm",
         "retry": "Retry",
         "save": "Add Another",
-        "save_add_tooltip": "Save and add another"
+        "save_add_tooltip": "Save and add another",
+        "close": "Close"
     },
     "add_new": {
         "title": "Add New Unit Pump",
@@ -103,5 +104,12 @@
         "median_upper": "Median Upper Thickness:",
         "common_config": "Common Config:",
         "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here."
+    },
+    "about": {
+        "title": "About PD UI Manager",
+        "app_name": "Application Name",
+        "version": "Version",
+        "author": "Author",
+        "license": "License"
     }
 }

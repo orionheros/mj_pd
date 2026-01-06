@@ -21,6 +21,8 @@ from pd.ui.widgets.settings import SettingsDialog
 from pd.ui.dialogs.add_new import AddNewDialog
 from pd.ui.dialogs.add_model import AddModelDialog
 from pd.ui.dialogs.del_unit import DelModelDialog
+from pd.ui.dialogs.about import AboutDialog
+from pd.ui.dialogs.help import HelpDialog
 from pd.ui.views.charts_area import ChartsArea
 from pd.ui.views.pd_table import PDTable
 
@@ -83,6 +85,17 @@ class MainWindow(QMainWindow):
         del_unit = QAction(self.i18n.t("menu.delete_unit"), self)
         del_unit.triggered.connect(self._delete_selected_unit)
         edit_menu.addAction(del_unit)
+
+        # HELP MENU
+        # Help
+        help_action = QAction(self.i18n.t("menu.help"), self)
+        help_action.triggered.connect(lambda: HelpDialog(self.ctx).exec())
+        help_menu.addAction(help_action)
+
+        # About
+        about_action = QAction(self.i18n.t("menu.about"), self)
+        about_action.triggered.connect(lambda: AboutDialog(self.ctx).exec())
+        help_menu.addAction(about_action)
 
         #
         ##

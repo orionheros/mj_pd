@@ -34,7 +34,8 @@
         "confirm": "Zatwierdź",
         "retry": "Ponów próbę",
         "save": "Dodaj kolejny",
-        "save_add_tooltip": "Zapisz i dodaj kolejny"
+        "save_add_tooltip": "Zapisz i dodaj kolejny",
+        "close": "Zamknij"
     },
     "add_new": {
         "title": "Dodawanie pompowtryskiwacza",
@@ -103,5 +104,12 @@
         "median_upper": "Mediana górnej:",
         "common_config": "Wspólna konfiguracja:",
         "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła."
+    },
+    "about": {
+        "title": "O aplikacji PD UI Manager",
+        "app_name": "Nazwa aplikacji",
+        "version": "Wersja",
+        "author": "Autor",
+        "license": "Licencja"
     }
 }
