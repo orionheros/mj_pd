@@ -6,7 +6,8 @@ from PyQt6.QtWidgets import (
     QDialog, 
     QVBoxLayout,
     QLabel, 
-    QPushButton
+    QPushButton,
+    QMessageBox
 )
 
 from pd import (__version__, 
@@ -14,7 +15,9 @@ from pd import (__version__,
                 __license__,
                 __app_name__)
 from pd.app_context import AppContext
-from pd.startup.updates import UpdateWorker
+from pd.platform.os_detect import get_platform
+from pd.startup.updates import check_update, download_update
+from pathlib import Path
 
 class AboutDialog(QDialog):
     def __init__(self, ctx: AppContext):
@@ -40,7 +43,7 @@ class AboutDialog(QDialog):
         btn_close = QPushButton(self.ctx.i18n.t("buttons.close"))
         btn_close.clicked.connect(self.accept)
 
-        check_upd = QPushButton(self.ctx.i18n.t("help.check_updates"))
+        check_upd = QPushButton(self.ctx.i18n.t("update.check_updates"))
         check_upd.clicked.connect(self._check_updates)
 
         layout.addWidget(check_upd)
@@ -59,12 +62,47 @@ class AboutDialog(QDialog):
         return __license__
 
     def _check_updates(self):
-        worker = UpdateWorker()
-        worker.finished.connect(self._on_update_check_finished)
-        worker.run()
+        try:
+            info = check_update(
+                current_version=__version__, 
+                platform=get_platform()
+            )
+        except Exception as e:
+            QMessageBox.warning(self, self.ctx.i18n.t("update.update_error"), str(e))
+            return
+        
+        if not info or not isinstance(info, dict):
+            QMessageBox.information(
+                self, 
+                self.ctx.i18n.t("update.no_update_title"), 
+                self.ctx.i18n.t("update.no_update_message")
+            )
+            return
+        
+        text_a = self.ctx.i18n.t("update.change_text")
+        text_b = self.ctx.i18n.t("update.want_update")
+        msg = (
+            f"{self.ctx.i18n.t('update.update_available')} {info['version']}\n\n"
+            f"{text_a}:\n{info['changelog']}\n\n"
+            f"{text_b}"
+        )
 
-    def _on_update_check_finished(self, is_update_available, latest_version, release_url):
-        if is_update_available:
-            print(f"Update available: {latest_version}. Check {release_url}")
-        else:
-            print("No updates available.")
+        if QMessageBox.question(
+            self,
+            self.ctx.i18n.t("update.update_available_title"),
+            msg,
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        ) == QMessageBox.StandardButton.Yes:
+            
+            try:
+                dest_dir = Path.home() / "Downloads"
+
+                downloaded_file = download_update(info, dest_dir)
+
+                QMessageBox.information(
+                    self,
+                    self.ctx.i18n.t("update.download_complete_title"),
+                    f"{self.ctx.i18n.t('update.download_complete_message')}:\n{downloaded_file}"
+                )
+            except Exception as e:
+                QMessageBox.warning(self, self.ctx.i18n.t("update.download_error"), str(e))

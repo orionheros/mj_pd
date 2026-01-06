@@ -36,3 +36,17 @@ class ResourceManager:
         icon = QIcon(str(icon_path))
         self._icon_cache[name] = icon
         return icon
+    
+    def image(self, name: str):
+        """
+        Get image path by name.
+        """
+        png_path = resource_path(f"pd/assets/img/{name}.png")
+        jpg_path = resource_path(f"pd/assets/img/{name}.jpg")
+
+        if png_path.exists():
+            return str(png_path)
+        elif jpg_path.exists():
+            return str(jpg_path)
+        else:
+            raise FileNotFoundError(f"Image '{name}' not found as PNG or JPG in: {png_path.parent}")

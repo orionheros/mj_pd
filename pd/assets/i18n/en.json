@@ -13,7 +13,8 @@
         "exit": "Exit",
         "add_new": "Add New Unit Pump",
         "add_model": "Add Unit Pump Model",
-        "delete_unit": "Delete Unit Pump"
+        "delete_unit": "Delete Unit Pump",
+        "about": "About"
     },
     "settings": {
         "title": "Settings",
@@ -21,7 +22,8 @@
         "theme": "Theme",
         "ok": "OK",
         "cancel": "Cancel",
-        "language_tooltip": "Restart the application to apply language changes."
+        "language_tooltip": "Restart the application to apply language changes.",
+        "restart": "Restart"
     },
     "errors": {
         "startup_failed": "Failed to start the application.",
@@ -111,5 +113,34 @@
         "version": "Version",
         "author": "Author",
         "license": "License"
+    },
+    "update": {
+        "check_updates": "Check for Updates",
+        "update_error": "An error occurred while checking for updates.",
+        "no_update_title": "No Update Available",
+        "no_update_message": "You are using the latest version of the application.",
+        "update_available": "Update Available!\nDownload the latest version from: ",
+        "update_available_title": "Update Available",
+        "change_text": "What's New",
+        "want_update": "Do you want to download the update?",
+        "download_complete_title": "Download Complete",
+        "download_complete_message": "The update has been downloaded to the default Downloads folder.",
+        "download_error":"An error occurred while downloading the update:"
+    },
+    "help": {
+            "window_title": "Help",
+            "title": "Program User Manual",
+            "subtitle": "Welcome to PD UI Manager!",
+            "subtitle_2": "PD UI Manager is a tool designed for precise calculation of the average, repeatable length of the injection component set in unit injectors.",
+            "subtitle_3": "Features and Calculations",
+            "content_1": "The program automates the calculation process based on the provided technical data:\n- ESI opening pressure (factory value),\n- shim thicknesses: A - upper, C - lower,\n- spring length - B,\n- obtained opening pressure.\n\nCalculation results are displayed to the right of the charts, in the statistics section.\nThe 'common configuration' statistic shows the most frequent set of shims and springs among all unit injectors of a given model – provided it appears at least 5 times.",
+            "subtitle_4": "How to Use the Program",
+            "subtitle_5": "Adding Data",
+            "content_2": "New unit injector: Select 'Add new unit injector' from the 'File' menu or use the Ctrl+N shortcut. Enter the data in the window and confirm with the 'Add' button. You can add another unit injector without closing the window by clicking 'Add next'.\n\nNew unit injector model: If a specific model is not on the list, use the 'Add unit injector model' option from the 'File' menu. Some popular models are pre-loaded upon the first launch of the program.\n\n",
+            "subtitle_6": "Management and Analysis",
+            "content_3": "The main application window allows you to browse the list of added unit injectors, filter them by model number, and analyze charts representing the shim thickness distribution.\nEach chart can be enlarged by clicking on it. It will then be displayed in a new, separate window.\nDeleting a unit injector: Select a unit injector from the list and click 'Delete unit injector' in the 'File' menu. Confirm the deletion in the displayed dialog box.\n\n",
+            "subtitle_7": "Support and Updates",
+            "content_4": "To ensure optimal program performance, it is recommended to regularly check for updates. This option is located in the 'Help' menu, under the 'About' tab. New versions may contain bug fixes, feature improvements, and new capabilities to streamline your work with PD UI Manager.\n\n",
+            "content_5": "Thank you for using PD UI Manager!"
     }
 }

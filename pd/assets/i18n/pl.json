@@ -13,7 +13,8 @@
         "exit": "Wyjście",
         "add_new": "Dodaj nowy pompowtryskiwacz",
         "add_model": "Dodaj model pompowtryskiwacza",
-        "delete_unit": "Usuń pompowtryskiwacz"
+        "delete_unit": "Usuń pompowtryskiwacz",
+        "about": "O aplikacji"
     },
     "settings": {
         "title": "Ustawienia",
@@ -21,7 +22,8 @@
         "theme": "Motyw",
         "ok": "OK",
         "cancel": "Anuluj",
-        "language_tooltip": "Zrestartuj aplikację, aby zastosować zmiany języka."
+        "language_tooltip": "Zrestartuj aplikację, aby zastosować zmiany języka.",
+        "restart": "Uruchom ponownie"
     },
     "errors": {
         "startup_failed": "Nie udało się uruchomić aplikacji.",
@@ -111,5 +113,34 @@
         "version": "Wersja",
         "author": "Autor",
         "license": "Licencja"
+    },
+    "update": {
+        "check_updates": "Sprawdź dostępność aktualizacji",
+        "update_error": "Wystąpił błąd podczas sprawdzania aktualizacji.",
+        "no_update_title": "Aktualizacja niedostępna",
+        "no_update_message": "Używasz najnowszej wersji aplikacji.",
+        "update_available": "Dostępna aktualizacja!\nPobierz najnowszą wersję z: ",
+        "update_available_title": "Aktualizacja dostępna",
+        "change_text": "Co nowego",
+        "want_update": "Czy chcesz pobrać aktualizację?",
+        "download_complete_title": "Pobieranie zakończone",
+        "download_complete_message": "Aktualizacja została pobrana do domyślnego folderu Pobrane.",
+        "download_error":"Wystąpił błąd podczas pobierania aktualizacji:"
+    },
+    "help": {
+        "window_title": "Pomoc",
+        "title": "Instrukcja obsługi programu",
+        "subtitle": "Witamy w PD UI Manager!",
+        "subtitle_2": "PD UI Manager to narzędzie zaprojektowane do precyzyjnego wyliczania średniej, powtarzalnej długości zestawu elementów wtrysku w pompowtryskiwaczach.",
+        "subtitle_3": "Funkcje i obliczenia",
+        "content_1": "Program automatyzuje proces obliczeniowy na podstawie dostarczonych danych technicznych:\n- ciśnienie otwarcia ESI (wartość fabryczna),\n- grubości podkładek: A - górnej, C - dolnej,\n- długości sprężyny - B,\n- ciśnienia otwarcia otrzymanego.\n\nWyniki obliczeń są wyświetlane po prawej stronie wykresów, w sekcji statystyk.\nStatystyka 'wspólna konfiguracja' pokazuje najczęściej występujący zestaw podkładek i sprężyny wśród wszystkich pompowtryskiwaczy danego modelu - jeśli występuje co najmniej 5 razy.",
+        "subtitle_4": "Jak korzystać z programu",
+        "subtitle_5": "Dodawanie danych",
+        "content_2": "Nowy pompowtryskiwacz: Wybierz z menu 'Plik' opcję 'Dodaj nowy pompowtryskiwacz' lub użyj skrótu Ctrl+N. Wprowadź dane w oknie i zatwierdź przyciskiem 'Dodaj'. Możesz dodać kolejny pompowtryskiwacz bez zamykania okna, klikając 'Dodaj kolejny'.\nNowy model pompowtryskiwacza: Jeśli danego modelu nie ma na liście, użyj opcji 'Dodaj model pompowtryskiwacza' z menu 'Plik'. Niektóre popularne modele są wstępnie załadowane przy pierwszym uruchomieniu programu.\n\n",
+        "subtitle_6": "Zarządzanie i analiza",
+        "content_3": "Główne okno aplikacji umożliwia przeglądanie listy dodanych pompowtryskiwaczy, filtrowanie ich według numeru modelu oraz analizę wykresów przedstawiających rozkład grubości podkładek.\nMożna powiększyć każdy wykres, klikając na niego. Wyświetli się on w nowym, osobnym oknie.\nUsuwanie pompowtryskiwacza: Wybierz pompowtryskiwacz z listy i kliknij 'Usuń pompowtryskiwacz' w menu 'Plik'. Potwierdź usunięcie w wyświetlonym oknie dialogowym.\n\n",
+        "subtitle_7": "Wsparcie i aktualizacje",
+        "content_4": "Aby zapewnić optymalne działanie programu, zaleca się regularne sprawdzanie dostępności aktualizacji. Znajduje się ono w menu 'Pomoc', zakładce 'O programie'. Nowe wersje mogą zawierać poprawki błędów, ulepszenia funkcji oraz nowe możliwości, które mogą usprawnić Twoją pracę z PD UI Manager.\n\n",
+        "content_5": "Dziękuję za korzystanie z PD UI Manager!"
     }
 }

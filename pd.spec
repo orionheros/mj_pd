@@ -9,13 +9,12 @@ a = Analysis(
     binaries=[],
     datas=[
         ('pd/assets/*', 'pd/assets'), 
-        ('pd/pd.sql', 'pd'),
         ('pd/core/*', 'pd/core'),
         ('pd/platform/*', 'pd/platform'),
         ('pd/startup/*', 'pd/startup'),
         ('pd/ui/*', 'pd/ui')
         ],
-    hiddenimports=[],
+    hiddenimports=['numpy._core._multiarray_umath', 'numpy._core.multiarray'],
     hookspath=[],
     runtime_hooks=[],
     excludes=[],
@@ -27,22 +26,15 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
     [],
-    exclude_binaries=True,
-    name='pd',
+    exclude_binaries=False,
+    name='PD UI Mng',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=True,
-)
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='pd'
+    console=False,
 )

@@ -4,6 +4,7 @@
 
 import os
 import sys
+import subprocess
 
 from PyQt6.QtWidgets import (
     QVBoxLayout,
@@ -11,7 +12,8 @@ from PyQt6.QtWidgets import (
     QDialog,
     QPushButton,
     QComboBox,
-    QHBoxLayout
+    QHBoxLayout,
+    QApplication
 )
 
 from pd.core.i18n import AVAILABLE_LANGUAGES
@@ -73,6 +75,18 @@ class SettingsDialog(QDialog):
     def _restart_app(self):
         self._on_language_changed()
         if os.environ.get("DEBUGPY_RUNNING"):
-            print("Restarting application...")
-        else:
-            os.execv(sys.executable, [sys.executable] + sys.argv)
+            print("DEBUG: Restarting application...")
+            return
+        
+        executable = sys.executable
+        args = sys.argv[1:]
+        
+        env = os.environ.copy()
+        env.pop("_MEIPASS2", None)
+        env.pop("PYTHONPATH", None)
+        env.pop("PYTHONHOME", None)
+
+        subprocess.Popen([executable] + args, env=env)
+
+        QApplication.quit()
+        sys.exit(0)

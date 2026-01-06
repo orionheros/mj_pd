@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         # HELP MENU
         # Help
         help_action = QAction(self.i18n.t("menu.help"), self)
-        help_action.triggered.connect(lambda: HelpDialog(self.ctx).exec())
+        help_action.triggered.connect(lambda: HelpDialog(self.ctx).show())
         help_menu.addAction(help_action)
 
         # About

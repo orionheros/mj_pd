@@ -15,7 +15,6 @@ venv/
 .vscode/*.pyc
 moja_pomoc.txt
 my_help.txt
-!.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/launch.json
 
@@ -27,3 +26,7 @@ Thumbs.db
 pip-selfcheck.json
 .python-version
 .env/
+
+# Build files
+build/
+dist/
