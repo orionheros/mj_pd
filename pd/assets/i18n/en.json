@@ -23,7 +23,8 @@
         "ok": "OK",
         "cancel": "Cancel",
         "language_tooltip": "Restart the application to apply language changes.",
-        "restart": "Restart"
+        "restart": "Restart",
+        "launcher_on_startup": "Show launcher on application startup"
     },
     "errors": {
         "startup_failed": "Failed to start the application.",

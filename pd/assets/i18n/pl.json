@@ -23,7 +23,8 @@
         "ok": "OK",
         "cancel": "Anuluj",
         "language_tooltip": "Zrestartuj aplikację, aby zastosować zmiany języka.",
-        "restart": "Uruchom ponownie"
+        "restart": "Uruchom ponownie",
+        "launcher_on_startup": "Pokaż launcher przy starcie aplikacji"
     },
     "errors": {
         "startup_failed": "Nie udało się uruchomić aplikacji.",

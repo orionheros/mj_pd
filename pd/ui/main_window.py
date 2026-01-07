@@ -88,8 +88,9 @@ class MainWindow(QMainWindow):
 
         # HELP MENU
         # Help
+        self.help_action = None
         help_action = QAction(self.i18n.t("menu.help"), self)
-        help_action.triggered.connect(lambda: HelpDialog(self.ctx).show())
+        help_action.triggered.connect(self._show_help)
         help_menu.addAction(help_action)
 
         # About
@@ -151,11 +152,12 @@ class MainWindow(QMainWindow):
             self.refresh()
 
     def get_selected_pd_id(self) -> int | None:
-        selected = self.table.selectedItems()
+        selected = self.table.table.selectedItems()  # self.table to PDTable, a PDTable.table to QTableWidget
         if not selected:
             return None
+        
         row = selected[0].row()
-        pd_id = int(self.table.item(row, 0).text()) # model_id is in hidden column 0
+        pd_id = int(self.table.table.item(row, 0).text())  # model_id is in hidden column 0
         return pd_id, row
     
     def _row_selected(self, pd_id: int, model: str, model_id: str):
@@ -180,3 +182,11 @@ class MainWindow(QMainWindow):
         dlg = DelModelDialog(self.ctx, pd_id)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.refresh()
+
+    def _show_help(self):
+        if self.help_action is None:
+            self.help_action = HelpDialog(self.ctx)
+
+        self.help_action.show()
+        self.help_action.raise_()
+        self.help_action.activateWindow()

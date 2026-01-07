@@ -4,12 +4,9 @@
 
 import sys
 
-from PyQt6.QtWidgets import QApplication
-
 from pd.ui.main_window import MainWindow
 
-def run_ui(ctx) -> None:
-    app = QApplication(sys.argv)
+def run_ui(ctx, app) -> None:
 
     window = MainWindow(ctx)
     window.show()

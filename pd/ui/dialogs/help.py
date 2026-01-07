@@ -16,8 +16,8 @@ from PyQt6.QtCore import Qt
 from pd.app_context import AppContext
 
 class HelpDialog(QDialog):
-    def __init__(self, ctx: AppContext):
-        super().__init__()
+    def __init__(self, ctx: AppContext, parent=None):
+        super().__init__(parent)
         self.setWindowTitle(ctx.i18n.t("help.window_title"))
         self.ctx = ctx
         self._build_ui()

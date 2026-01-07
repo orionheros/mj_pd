@@ -10,6 +10,7 @@ a = Analysis(
     datas=[
         ('pd/assets/*', 'pd/assets'), 
         ('pd/core/*', 'pd/core'),
+        ('pd/launcher/*, 'pd/launcher'),
         ('pd/platform/*', 'pd/platform'),
         ('pd/startup/*', 'pd/startup'),
         ('pd/ui/*', 'pd/ui')

@@ -6,6 +6,10 @@ from configparser import ConfigParser
 from pathlib import Path
 
 DEFAULT_CONFIG = {
+    "launcher": {
+        "show_on_startup": "true",
+        "saved_data_package": "",
+    },
     "general": {
         "language": "en",
         "theme": "system",

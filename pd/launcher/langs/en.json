@@ -1,0 +1,14 @@
+{
+    "window_title": "PD UI Manager Launcher",
+    "select_language": "Select Language:",
+    "select_module": "Select Module to Launch:",
+    "set_as_default": "Set as Default",
+    "finish": "Finish",
+    "next": "Next",
+    "back": "Back",
+    "default_tooltip": "If checked, this module will be launched by default on PD UI Manager startup, skipping this launcher.",
+    "give_idea": "Have an idea for a module? Contact me!",
+    "no_selection_title": "No Selection",
+    "no_selection_msg": "Please select a module to proceed.",
+    "test": "test"
+}
