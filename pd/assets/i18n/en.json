@@ -143,5 +143,16 @@
             "subtitle_7": "Support and Updates",
             "content_4": "To ensure optimal program performance, it is recommended to regularly check for updates. This option is located in the 'Help' menu, under the 'About' tab. New versions may contain bug fixes, feature improvements, and new capabilities to streamline your work with PD UI Manager.\n\n",
             "content_5": "Thank you for using PD UI Manager!"
+    },
+    "db_selector": {
+        "use_default": "Use default database path",
+        "browse": "Select file",
+        "browse_tooltip": "Select an existing database (pd.db)",
+        "browse_folder": "Select folder",
+        "browse_folder_tooltip": "Select a folder where a new database (pd.db) will be created",
+        "title": "Database Selection",
+        "save": "Save Selection",
+        "select_file": "Select database file",
+        "select_folder": "Select folder for database"
     }
 }

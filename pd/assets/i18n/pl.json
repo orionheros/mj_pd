@@ -143,5 +143,16 @@
         "subtitle_7": "Wsparcie i aktualizacje",
         "content_4": "Aby zapewnić optymalne działanie programu, zaleca się regularne sprawdzanie dostępności aktualizacji. Znajduje się ono w menu 'Pomoc', zakładce 'O programie'. Nowe wersje mogą zawierać poprawki błędów, ulepszenia funkcji oraz nowe możliwości, które mogą usprawnić Twoją pracę z PD UI Manager.\n\n",
         "content_5": "Dziękuję za korzystanie z PD UI Manager!"
+    },
+    "db_selector": {
+        "use_default": "Użyj domyślnej ścieżki bazy danych",
+        "browse": "Wskaż plik",
+        "browse_tooltip": "Wskaż istniejącą bazę danych (pd.db)",
+        "browse_folder": "Wskaż folder",
+        "browse_folder_tooltip": "Wskaż folder, w którym zostanie utworzona nowa baza danych (pd.db)",
+        "title": "Wybór bazy danych",
+        "save": "Zapisz wybór",
+        "select_file": "Wybierz plik bazy danych",
+        "select_folder": "Wybierz folder dla bazy danych"
     }
 }

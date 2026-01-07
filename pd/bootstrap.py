@@ -18,6 +18,7 @@ from pd.core.repositories import PDRepository
 from pd.core.services import PDService
 from pd.platform.resources import ResourceManager
 from pd.launcher.launcher import Launcher
+from pd.ui.widgets.db_selector import get_database_path
 
 def start_app():
     platform = get_platform()
@@ -54,7 +55,9 @@ def start_app():
         try:
             init_logging(paths.logs)
 
-            db_path = paths.data / "pd.db"
+            db_path = get_database_path(config, paths, i18n)
+            with open(paths.config / "config.ini", 'w', encoding='utf-8') as f:
+                config.write(f)
             init_database(db_path)
 
             conn = sqlite3.connect(db_path)

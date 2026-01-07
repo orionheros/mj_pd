@@ -22,6 +22,10 @@ DEFAULT_CONFIG = {
     "logging": {
         "level": "INFO",
     },
+    "database": {
+        "path": "",
+        "use_default": "true",
+    },
 }
 
 def load_config(config_path: Path) -> ConfigParser:
