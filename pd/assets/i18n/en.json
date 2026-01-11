@@ -18,13 +18,19 @@
     },
     "settings": {
         "title": "Settings",
+        "title1": "General Application Settings",
         "language": "Language",
         "theme": "Theme",
         "ok": "OK",
         "cancel": "Cancel",
         "language_tooltip": "Restart the application to apply language changes.",
         "restart": "Restart",
-        "launcher_on_startup": "Show launcher on application startup"
+        "launcher_on_startup": "Show launcher on application startup",
+        "db_selector_on_startup": "Show database selection on application startup",
+        "db_use_default": "Use default database path",
+        "db_use_default_tooltip": "Windows: %localappdata%\\PDApp\\pd.db\nLinux: ~/.local/share/PDApp/pd.db\nMacOS: ~/Library/Application Support/PDApp/pd.db",
+        "db_path_tooltip": "Path to the currently used database",
+        "language_restart_info": "Restart the application to apply language changes."
     },
     "errors": {
         "startup_failed": "Failed to start the application.",
@@ -109,11 +115,13 @@
         "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here."
     },
     "about": {
-        "title": "About PD UI Manager",
+        "title": "About",
         "app_name": "Application Name",
         "version": "Version",
         "author": "Author",
-        "license": "License"
+        "license": "License",
+        "contact": "Contact",
+        "github": "Repository available at"
     },
     "update": {
         "check_updates": "Check for Updates",
@@ -125,8 +133,9 @@
         "change_text": "What's New",
         "want_update": "Do you want to download the update?",
         "download_complete_title": "Download Complete",
-        "download_complete_message": "The update has been downloaded to the default Downloads folder.",
-        "download_error":"An error occurred while downloading the update:"
+        "download_complete_message": "The update has been downloaded to the folder",
+        "download_error":"An error occurred while downloading the update:",
+        "repo_not_found": "Update repository not found."
     },
     "help": {
             "window_title": "Help",
@@ -153,6 +162,18 @@
         "title": "Database Selection",
         "save": "Save Selection",
         "select_file": "Select database file",
-        "select_folder": "Select folder for database"
+        "select_folder": "Select folder for database",
+        "dont_show_again": "Do not show this window on application startup"
+    },
+    "download_dialog": {
+        "title": "Downloading",
+        "label": "Downloading file...",
+        "select_directory": "Select target folder",
+        "downloading": "Downloading...",
+        "cancel": "Cancel",
+        "no_directory_selected": "No target folder selected.",
+        "download_finished": "Download complete.",
+        "close": "Close",
+        "download_error": "An error occurred while downloading the file."
     }
 }

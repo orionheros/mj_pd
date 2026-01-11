@@ -28,6 +28,41 @@ class PDRepository:
         cursor.execute("SELECT id, model_name FROM pd_models")
         return cursor.fetchall()
     
+    def get_unit_by_pd_id(self, pd_id: str) -> PD | None:
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT id, model_id, washer1_thickness, washer2_thickness, spring_length, final_pressure, opening_pressure_id FROM pd WHERE id = ?",
+            (pd_id,)
+        )
+        row = cursor.fetchone()
+        if row:
+            return PD(*row)
+        return None
+    
+    def update(self, pd: PD) -> None:
+        self.conn.execute(
+            """
+            UPDATE pd
+            SET model_id = ?,
+                washer1_thickness = ?,
+                washer2_thickness = ?,
+                spring_length = ?,
+                final_pressure = ?,
+                opening_pressure_id = ?
+            WHERE id = ?
+            """,
+            (
+                pd.model_id,
+                pd.washer1_thickness,
+                pd.washer2_thickness,
+                pd.spring_length,
+                pd.final_pressure,
+                pd.opening_pressure_id,
+                pd.id
+            )
+        )
+        self.conn.commit()
+    
     def count_by_model(self, model_id: str) -> int:
         """
         Count number of pump units for a given model_id

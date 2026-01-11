@@ -20,6 +20,7 @@ from pd.core.config import load_config, save_config
 from pd.ui.widgets.settings import SettingsDialog
 from pd.ui.dialogs.add_new import AddNewDialog
 from pd.ui.dialogs.add_model import AddModelDialog
+from pd.ui.dialogs.edit_unit import EditUnitDialog
 from pd.ui.dialogs.del_unit import DelModelDialog
 from pd.ui.dialogs.about import AboutDialog
 from pd.ui.dialogs.help import HelpDialog
@@ -80,6 +81,11 @@ class MainWindow(QMainWindow):
         new_model = QAction(self.i18n.t("menu.add_model"), self)
         new_model.triggered.connect(lambda: AddModelDialog(self.ctx).exec())
         edit_menu.addAction(new_model)
+
+        # Edit selected unit
+        edit_unit = QAction(self.i18n.t("menu.edit_unit"), self)
+        edit_unit.triggered.connect(self._edit_selected_unit)
+        edit_menu.addAction(edit_unit)
 
         # Delete unique pump unit, not the fabric model like 0414720215
         del_unit = QAction(self.i18n.t("menu.delete_unit"), self)
@@ -172,6 +178,16 @@ class MainWindow(QMainWindow):
             
             # Title on top Charts Area
             self.charts_area.set_title(count, model)
+
+    def _edit_selected_unit(self):
+        result = self.get_selected_pd_id()
+        if result is None:
+            QMessageBox.warning(self, self.i18n.t("edit_unit.title"), self.i18n.t("edit_unit.no_selection"))
+            return
+        pd_id, row = result
+        success = EditUnitDialog(self.ctx, pd_id=pd_id, row=row).exec()
+        if success == QDialog.DialogCode.Accepted:
+            self.refresh()
 
     def _delete_selected_unit(self):
         result = self.get_selected_pd_id()

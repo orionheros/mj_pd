@@ -18,6 +18,12 @@ class PDService:
                 return name
         return "Unknown Model"
     
+    def unit_info(self, pd_id: str) -> PD | None:
+        return self.repo.get_unit_by_pd_id(pd_id)
+    
+    def update_unit(self, pd: PD) -> None:
+        self.repo.update(pd)
+    
     def get_models(self):
         return self.repo.get_models()
     

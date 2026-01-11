@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=PD UI Manager
+Exec=mj_pd
+Icon=logo
+Categories=Utility;

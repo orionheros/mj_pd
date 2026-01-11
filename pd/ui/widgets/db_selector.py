@@ -19,7 +19,10 @@ class DatabaseSelector(QDialog):
         self.config = config
         self.paths = paths
         self.i18n = i18n
-        self.selected_db_path = config["database"].get("path", "")
+
+        saved_path = config["database"].get("path", "")
+        self.selected_db_path = saved_path if saved_path else str(paths.data / "pd.db")
+        self.show_ask = config["database"].getboolean("show_ask", fallback=True)
 
         self.setWindowTitle(self.i18n.t("db_selector.title"))
         self.setFixedWidth(450)
@@ -47,8 +50,9 @@ class DatabaseSelector(QDialog):
         path_layout.addWidget(self.browse_folder_btn)
         layout.addLayout(path_layout)
 
-        self.browse_file_btn.clicked.connect(self._browse_file)
-        self.browse_folder_btn.clicked.connect(self._browse_folder)
+        self.show_ask_cb = QCheckBox(self.i18n.t("db_selector.dont_show_again"))
+        self.show_ask_cb.setChecked(not self.show_ask)
+        layout.addWidget(self.show_ask_cb)
 
         btn_layout = QHBoxLayout()
         save_btn = QPushButton(self.i18n.t("db_selector.save"))
@@ -57,6 +61,8 @@ class DatabaseSelector(QDialog):
         btn_layout.addWidget(save_btn)
         layout.addLayout(btn_layout)
 
+        self.browse_file_btn.clicked.connect(self._browse_file)
+        self.browse_folder_btn.clicked.connect(self._browse_folder)
         self._toggle_manual_selection()
 
     def _toggle_manual_selection(self):
@@ -78,28 +84,30 @@ class DatabaseSelector(QDialog):
 
     def _save_and_close(self):
         self.selected_db_path = self.path_input.text().strip()
+        self.show_ask = not self.show_ask_cb.isChecked()
+        self.config["database"]["show_ask"] = str(self.show_ask).lower()
         self.accept()
 
 def get_database_path(config, paths, i18n):
-    if config["database"].getboolean("use_default") and config["database"].get("path") == "":
-        return paths.data / "pd.db"
-    
-    saved_path = config["database"].get("path")
-    if saved_path and not config["database"].getboolean("use_default"):
+    show_ask = config["database"].getboolean("show_ask", fallback=True)
+
+    if not show_ask:
+        saved_path = config["database"].get("path")
+        if config["database"].getboolean("use_default") or not saved_path:
+            return paths.data / "pd.db"
         return Path(saved_path)
-    
+
     selector = DatabaseSelector(config, paths, i18n)
     if selector.exec() == QDialog.DialogCode.Accepted:
         config["database"]["use_default"] = str(selector.default_cb.isChecked()).lower()
+        config["database"]["show_ask"] = str(selector.show_ask).lower()
 
         if selector.default_cb.isChecked():
-            final_path = paths.data / "pd.db"
             config["database"]["path"] = ""
+            return paths.data / "pd.db"
         else:
-            final_path = Path(selector.selected_db_path)
-            config["database"]["path"] = str(final_path)
+            config["database"]["path"] = selector.selected_db_path
+            return Path(selector.selected_db_path)
 
-        return final_path
-    
     return paths.data / "pd.db"  # Fallback to default if dialog is cancelled
 

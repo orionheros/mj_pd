@@ -24,7 +24,8 @@ DEFAULT_CONFIG = {
     },
     "database": {
         "path": "",
-        "use_default": "true",
+        "use_default": "false",
+        "show_ask": "false",
     },
 }
 

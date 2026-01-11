@@ -18,13 +18,19 @@
     },
     "settings": {
         "title": "Ustawienia",
+        "title1": "Ustawienia ogólne aplikacji",
         "language": "Język",
         "theme": "Motyw",
         "ok": "OK",
         "cancel": "Anuluj",
         "language_tooltip": "Zrestartuj aplikację, aby zastosować zmiany języka.",
         "restart": "Uruchom ponownie",
-        "launcher_on_startup": "Pokaż launcher przy starcie aplikacji"
+        "launcher_on_startup": "Pokaż launcher przy starcie aplikacji",
+        "db_selector_on_startup": "Pokaż wybór bazy danych przy starcie aplikacji",
+        "db_use_default": "Użyj domyślnej ścieżki bazy danych",
+        "db_use_default_tooltip": "Windows: %localappdata%\\PDApp\\pd.db\nLinux: ~/.local/share/PDApp/pd.db\nMacOS: ~/Library/Application Support/PDApp/pd.db",
+        "db_path_tooltip": "Ścieżka do aktualnie używanej bazy danych",
+        "language_restart_info": "Uruchom ponownie aplikację, aby zastosować zmiany języka."
     },
     "errors": {
         "startup_failed": "Nie udało się uruchomić aplikacji.",
@@ -109,11 +115,13 @@
         "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła."
     },
     "about": {
-        "title": "O aplikacji PD UI Manager",
+        "title": "Informacje",
         "app_name": "Nazwa aplikacji",
         "version": "Wersja",
         "author": "Autor",
-        "license": "Licencja"
+        "license": "Licencja",
+        "contact": "Kontakt",
+        "github": "Repozytorium dostępne na"
     },
     "update": {
         "check_updates": "Sprawdź dostępność aktualizacji",
@@ -125,8 +133,9 @@
         "change_text": "Co nowego",
         "want_update": "Czy chcesz pobrać aktualizację?",
         "download_complete_title": "Pobieranie zakończone",
-        "download_complete_message": "Aktualizacja została pobrana do domyślnego folderu Pobrane.",
-        "download_error":"Wystąpił błąd podczas pobierania aktualizacji:"
+        "download_complete_message": "Aktualizacja została pobrana do folderu",
+        "download_error":"Wystąpił błąd podczas pobierania aktualizacji:",
+        "repo_not_found": "Repozytorium aktualizacji nie zostało znalezione."
     },
     "help": {
         "window_title": "Pomoc",
@@ -153,6 +162,18 @@
         "title": "Wybór bazy danych",
         "save": "Zapisz wybór",
         "select_file": "Wybierz plik bazy danych",
-        "select_folder": "Wybierz folder dla bazy danych"
+        "select_folder": "Wybierz folder dla bazy danych",
+        "dont_show_again": "Nie pokazuj tego okna przy starcie aplikacji"
+    },
+    "download_dialog": {
+        "title": "Pobieranie",
+        "label": "Trwa pobieranie pliku...",
+        "select_directory": "Wybierz folder docelowy",
+        "downloading": "Pobieranie...",
+        "cancel": "Anuluj",
+        "no_directory_selected": "Nie wybrano folderu docelowego.",
+        "download_finished": "Pobieranie zakończone.",
+        "close": "Zamknij",
+        "download_error": "Wystąpił błąd podczas pobierania pliku."
     }
 }
