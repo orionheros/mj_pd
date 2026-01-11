@@ -14,6 +14,7 @@
         "add_new": "Dodaj nowy pompowtryskiwacz",
         "add_model": "Dodaj model pompowtryskiwacza",
         "delete_unit": "Usuń pompowtryskiwacz",
+        "edit_unit": "Edytuj pompowtryskiwacz",
         "about": "O aplikacji"
     },
     "settings": {
@@ -44,6 +45,7 @@
         "retry": "Ponów próbę",
         "save": "Dodaj kolejny",
         "save_add_tooltip": "Zapisz i dodaj kolejny",
+        "save_changes": "Zapisz zmiany",
         "close": "Zamknij"
     },
     "add_new": {
@@ -70,6 +72,13 @@
         "success": "Model pompowtryskiwacza został pomyślnie dodany.",
         "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza."
     },
+    "edit_unit": {
+        "title": "Edycja pompowtryskiwacza",
+        "label": "Edytuj dane pompowtryskiwacza:",
+        "no_selection": "Nie wybrano pompowtryskiwacza do edycji.",
+        "success": "Dane pompowtryskiwacza zostały pomyślnie zaktualizowane.",
+        "error_generic": "Wystąpił błąd podczas aktualizacji danych pompowtryskiwacza."
+    },
     "table": {
         "model_id": "No",
         "model_name": "Nr modelu",
@@ -93,7 +102,7 @@
         },
         "tool_tip_x": "Liczba podkładek: ",
         "tool_tip_y": "Grubość podkładek: ",
-        "chart_window_title": "Szczegółowy wykres"
+        "chart_window_title": "Szczegółowy wykres dla {n} pompowtryskiwaczy modelu {model_id}"
     },
     "delete_unit": {
         "title": "Usuwanie pompowtryskiwacza",
@@ -112,7 +121,9 @@
         "median_lower": "Mediana dolnej:",
         "median_upper": "Mediana górnej:",
         "common_config": "Wspólna konfiguracja:",
-        "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła."
+        "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła.",
+        "virtual_lower_label": "Wirtualna dolna podkładka:",
+        "virtual_upper_label": "Wirtualna górna podkładka:"
     },
     "about": {
         "title": "Informacje",

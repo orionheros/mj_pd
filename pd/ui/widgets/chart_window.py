@@ -11,17 +11,17 @@ from PyQt6.QtWidgets import (
 from pd.ui.utils.tooltip import on_point_hovered
 
 class ChartWindow(QWidget):
-    def __init__(self, source_scatter, source_mean_line, title, i18n, parent=None):
+    def __init__(self, source_scatter, source_mean_line, title, i18n, n, model_name, model_id, parent=None):
         super().__init__(parent)
         self.i18n = i18n
-        self.setWindowTitle(self.i18n.t("charts.chart_window_title"))
+        x, y = source_scatter.getData()
+        self.setWindowTitle(self.i18n.t("charts.chart_window_title").format(n=n, model_id=model_name))
         self.resize(800, 600)
 
         layout = QVBoxLayout(self)
         self.plot = pg.PlotWidget()
         layout.addWidget(self.plot)
 
-        x, y = source_scatter.getData()
         scatter = pg.ScatterPlotItem(
             x=x, y=y,
             pen=source_scatter.opts['pen'],

@@ -57,17 +57,17 @@ class EditUnitDialog(QDialog):
 
         self.model_id.setCurrentIndex(self.model_id.findData(unit_data.model_id))
         self.opening_pressure.setCurrentIndex(self.opening_pressure.findData(unit_data.opening_pressure_id))
-        self.washer1.setText(str(unit_data.washer1_thickness))
-        self.washer2.setText(str(unit_data.washer2_thickness))
-        self.spring_length.setText(str(unit_data.spring_length))
-        self.final_pressure.setText(str(unit_data.final_pressure))
+        self.washer1.setText(str(f"{unit_data.washer1_thickness:.2f}"))
+        self.washer2.setText(str(f"{unit_data.washer2_thickness:.2f}"))
+        self.spring_length.setText(str(f"{unit_data.spring_length:.2f}"))
+        self.final_pressure.setText(str(f"{unit_data.final_pressure:.0f}"))
 
         layout.addWidget(label)
         layout.addSpacing(10)
         layout.addLayout(form)
 
         # Buttons
-        btn_ok = QPushButton(self.ctx.i18n.t("buttons.save"))
+        btn_ok = QPushButton(self.ctx.i18n.t("buttons.save_changes"))
         btn_cancel = QPushButton(self.ctx.i18n.t("buttons.cancel"))
 
         btn_ok.setDefault(True)

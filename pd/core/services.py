@@ -14,7 +14,7 @@ class PDService:
     def get_model_name(self, model_id: str) -> str:
         models = self.repo.get_models()
         for mid, name in models:
-            if mid == model_id:
+            if str(mid) == str(model_id):
                 return name
         return "Unknown Model"
     

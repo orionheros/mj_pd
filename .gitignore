@@ -32,3 +32,8 @@ build/
 dist/
 AppDir/
 *.AppImage
+*.deb
+*.rpm
+*.tar.gz
+*.whl
+*.exe

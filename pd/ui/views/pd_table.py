@@ -21,8 +21,6 @@ class PDTable(QWidget):
         self.i18n = i18n
         self._setup_ui()
 
-        self.setMinimumWidth(500)
-
     def _setup_ui(self):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)

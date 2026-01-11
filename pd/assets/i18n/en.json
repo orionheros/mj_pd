@@ -14,6 +14,7 @@
         "add_new": "Add New Unit Pump",
         "add_model": "Add Unit Pump Model",
         "delete_unit": "Delete Unit Pump",
+        "edit_unit": "Edit Unit Pump",
         "about": "About"
     },
     "settings": {
@@ -44,6 +45,7 @@
         "retry": "Retry",
         "save": "Add Another",
         "save_add_tooltip": "Save and add another",
+        "save_changes": "Save Changes",
         "close": "Close"
     },
     "add_new": {
@@ -93,7 +95,7 @@
         },
         "tool_tip_x": "Number of Plates: ",
         "tool_tip_y": "Plate Thickness: ",
-        "chart_window_title": "Detailed Chart"
+        "chart_window_title": "Detailed Chart for {n} Unit Pumps of Model {model_id}"
     },
     "delete_unit": {
         "title": "Delete Unit Pump",
@@ -112,7 +114,9 @@
         "median_lower": "Median Lower Thickness:",
         "median_upper": "Median Upper Thickness:",
         "common_config": "Common Config:",
-        "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here."
+        "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here.",
+        "virtual_lower": "Virtual Lower Thickness:",
+        "virtual_upper": "Virtual Upper Thickness:"
     },
     "about": {
         "title": "About",

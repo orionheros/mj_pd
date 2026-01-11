@@ -107,26 +107,40 @@ class MainWindow(QMainWindow):
         #
         ##
         splitter = QSplitter(Qt.Orientation.Horizontal)
-
+        splitter.setStyleSheet("""
+            QSplitter::handle {
+                background-color: lightblue;
+                border-radius: 8px;
+                min-width: 5px;
+            }
+        """)
+        
         #
         # TABLE AREA
         self.table = PDTable(self.i18n)
         self.table.rowSelected.connect(self._row_selected)
+        self.table.setMinimumWidth(0)
         splitter.addWidget(self.table)
+        self.table.table.installEventFilter(self)
+        self.table.search.installEventFilter(self)
 
         #
         # CHARTS AREA
         self.charts_area = ChartsArea(self.i18n, self.ctx)
-
+        self.charts_area.setMinimumWidth(200)
         splitter.addWidget(self.charts_area)
+        splitter.setSizes([500, 900])
 
         splitter.setStretchFactor(0, 0)
         splitter.setStretchFactor(1, 1)
+        splitter.setCollapsible(0, True)
+        splitter.setCollapsible(1, False)
 
         layout.addWidget(splitter)
         self.setCentralWidget(main_widget)
         self.refresh()
 
+        self.installEventFilter(self)
 
     def refresh(self):
         models = self.ctx.pd_service.list_models_with_name()
@@ -206,3 +220,14 @@ class MainWindow(QMainWindow):
         self.help_action.show()
         self.help_action.raise_()
         self.help_action.activateWindow()
+
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Type.KeyPress:
+            key = event.key()
+            if key == Qt.Key.Key_Left:
+                self.charts_area.stats._step_down()
+                return True
+            if key == Qt.Key.Key_Right:
+                self.charts_area.stats._step_up()
+                return True
+        return super().eventFilter(obj, event)

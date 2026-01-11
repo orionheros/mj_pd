@@ -119,11 +119,28 @@ class WashersChart(QWidget):
         self.lower_mean_line.hide()
         self.plot_lower.addLegend()
 
+        self.lower_virtual_line = pg.InfiniteLine(
+            angle=0,
+            pen=pg.mkPen('orange', width=3, style=pg.QtCore.Qt.PenStyle.DotLine),
+        )
+        self.upper_virtual_line = pg.InfiniteLine(
+            angle=0,
+            pen=pg.mkPen('orange', width=3, style=pg.QtCore.Qt.PenStyle.DotLine),
+        )
+
+        self.plot_lower.addItem(self.lower_virtual_line)
+        self.plot_upper.addItem(self.upper_virtual_line)
+
+        self.lower_virtual_line.hide()
+        self.upper_virtual_line.hide()
+
     def update_data(
             self,
             lower_washers: list[float],
-            upper_washers: list[float]
+            upper_washers: list[float],
+            model_name: str
         ):
+        self.model_name = model_name
         # Lower spring plate
         lower_count = Counter(lower_washers)
         x_lower = list(lower_count.values())
@@ -150,6 +167,48 @@ class WashersChart(QWidget):
             self.upper_mean_line.hide()
         self.plot_upper.enableAutoRange()
 
+        self.upper_washers_count = len(upper_washers)
+        self.lower_washers_count = len(lower_washers)
+
+    # New method to force y-axis range
+    # autoRange() was buggy in some cases
+    def force_y_range(self, plot, values: list[float], padding: float = 0.05):
+        if not values:
+            return
+        
+        vmin = min(values)
+        vmax = max(values)
+
+        if vmin == vmax:
+            vmin -= padding
+            vmax += padding
+        else:
+            span = vmax - vmin
+            vmin -= span * padding
+            vmax += span * padding
+
+        plot.setYRange(vmin, vmax, padding=0)
+
+    # New method to handle virtual_line
+    # virtual_line without that method was not change y-axis range in charts 
+    def ensure_y_visible(self, plot, value: float, padding: float = 0.05):
+        view = plot.getViewBox()
+        (ymin, ymax) = view.viewRange()[1]
+
+        if ymin <= value <= ymax:
+            return  # Already visible
+        
+        span = ymax - ymin
+        if span <= 0:
+            span = abs(value) if value != 0 else 1.0
+
+        if value < ymin:
+            ymin = value - span * padding
+        elif value > ymax:
+            ymax = value + span * padding
+
+        plot.setYRange(ymin, ymax, padding=0)
+
     def _on_point_hovered(self, item, points, ev, plot_widget):
         if points is None or len(points) == 0:
             return
@@ -167,9 +226,29 @@ class WashersChart(QWidget):
         )
 
     def _open_uchart_window(self, event):
-        self.uchart_win = ChartWindow(self.upper_scatter, self.upper_mean_line, self.upper_chart_title, self.i18n)
+        n = getattr(self, 'upper_washers_count', 0)
+        model_name = getattr(self, 'model_name', '')
+        model_id = getattr(self, 'model_id', '')
+        self.uchart_win = ChartWindow(
+            self.upper_scatter, 
+            self.upper_mean_line, 
+            self.upper_chart_title, 
+            self.i18n,
+            n,
+            model_name=model_name,
+            model_id=model_id)
         self.uchart_win.show()
 
     def _open_lchart_window(self, event):
-        self.lchart_win = ChartWindow(self.lower_scatter, self.lower_mean_line, self.lower_chart_title, self.i18n)
+        n = getattr(self, 'lower_washers_count', 0)
+        model_name = getattr(self, 'model_name', '')
+        model_id = getattr(self, 'model_id', '')
+        self.lchart_win = ChartWindow(
+            self.lower_scatter, 
+            self.lower_mean_line, 
+            self.lower_chart_title, 
+            self.i18n,
+            n,
+            model_name=model_name,
+            model_id=model_id)
         self.lchart_win.show()
