@@ -116,7 +116,9 @@
         "common_config": "Common Config:",
         "common_config_tooltip": "The most frequently occurring configuration of washers and spring among all unit pumps of this model.\nMust occur at least 5 times to be displayed here.",
         "virtual_lower": "Virtual Lower Thickness:",
-        "virtual_upper": "Virtual Upper Thickness:"
+        "virtual_upper": "Virtual Upper Thickness:",
+        "outlier_info": "Tolerance: 0.06 mm",
+        "outlier_upper": "Up. Plates Out of Tolerance:"
     },
     "about": {
         "title": "About",
@@ -133,6 +135,7 @@
         "no_update_title": "No Update Available",
         "no_update_message": "You are using the latest version of the application.",
         "update_available": "Update Available!\nDownload the latest version from: ",
+        "update_available_message": "An update is available!\nGo to 'Help' > 'About' to download it.",
         "update_available_title": "Update Available",
         "change_text": "What's New",
         "want_update": "Do you want to download the update?",

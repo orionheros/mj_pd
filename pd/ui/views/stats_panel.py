@@ -65,6 +65,8 @@ class StatsPanel(QWidget):
         self.btn_minus.clicked.connect(self._step_down)
         self.btn_plus.clicked.connect(self._step_up)
 
+        self.outlier_upper = QLabel()
+
         slider_row = QHBoxLayout()
         slider_row.addWidget(self.btn_minus)
         slider_row.addWidget(self.virtual_slider, 1)
@@ -92,6 +94,11 @@ class StatsPanel(QWidget):
         layout.addRow(self.i18n.t("stats_panel.virtual_lower_label"), self.virtual_label)
         layout.addRow(self.i18n.t("stats_panel.virtual_upper_label"), self.virtual_upper_label)
         layout.addRow("", slider_row)
+
+        layout.addRow("", QLabel(""))  # Spacer
+
+        layout.addRow(self.i18n.t("stats_panel.outlier_info"), QLabel(""))  # Spacer
+        layout.addRow(self.i18n.t("stats_panel.outlier_upper"), self.outlier_upper)
         
         outer.addLayout(layout)
         outer.addStretch(1)
@@ -129,6 +136,16 @@ class StatsPanel(QWidget):
         self._avg_total = stats.avg_total
         self._avg_spring = stats.avg_spring
         self._avg_lower = stats.avg_lower
+
+        tolerance = 0.06
+        eps = 1e-9
+        if hasattr(stats, 'uppers') and stats.uppers:
+            mean = sum(stats.uppers) / len(stats.uppers)
+            outliers = [y for y in stats.uppers if abs(y - mean) >= tolerance - eps]
+            percent = 100 * len(outliers) / len(stats.uppers)
+            self.outlier_upper.setText(f"{percent:.1f} %")
+        else:
+            self.outlier_upper.setText("--")
 
     def _on_virtual_changed(self, value: int):
         if not self.isVisible():

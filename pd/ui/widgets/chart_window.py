@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import (
 from pd.ui.utils.tooltip import on_point_hovered
 
 class ChartWindow(QWidget):
-    def __init__(self, source_scatter, source_mean_line, title, i18n, n, model_name, model_id, parent=None):
+    def __init__(self, source_scatter, scatter_edge, source_mean_line, title, i18n, n, model_name, model_id, parent=None):
         super().__init__(parent)
         self.i18n = i18n
         x, y = source_scatter.getData()
@@ -34,6 +34,20 @@ class ChartWindow(QWidget):
         )
         self.plot.addItem(scatter)
 
+        if scatter_edge is not None:
+            x_red, y_red = scatter_edge.getData()
+            edge_scatter = pg.ScatterPlotItem(
+                x=x_red, y=y_red,
+                pen=scatter_edge.opts['pen'],
+                brush=scatter_edge.opts['brush'],
+                size=scatter_edge.opts['size'],
+                symbol=scatter_edge.opts['symbol'],
+                name=scatter_edge.opts['name'],
+                hoverable=scatter_edge.opts['hoverable'],
+                tip=scatter_edge.opts['tip']
+            )
+            self.plot.addItem(edge_scatter)
+
         if source_mean_line.isVisible():
             mean_line = pg.InfiniteLine(
                 angle=source_mean_line.angle,
@@ -51,3 +65,5 @@ class ChartWindow(QWidget):
         self.plot.getAxis('left').setTickSpacing(major=0.01, minor=0.01)
         self.plot.setBackground('w')
         scatter.sigHovered.connect(lambda item, points, ev: on_point_hovered(self.i18n, points, self.plot))
+        if scatter_edge is not None:
+            edge_scatter.sigHovered.connect(lambda item, points, ev: on_point_hovered(self.i18n, points, self.plot))

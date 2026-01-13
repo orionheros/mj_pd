@@ -23,6 +23,7 @@ class PDStats:
     median_lower: float
     median_upper: float
     common_config: tuple[float, float, float] | None # lower, upper, spring
+    uppers: list[float]
 
 def compute_stats(records: list[PDRecord]) -> PDStats | None:
     if not records:
@@ -35,6 +36,8 @@ def compute_stats(records: list[PDRecord]) -> PDStats | None:
 
     common = most_common_config(records)
 
+    uppers = [r.washer2 for r in records]
+
     return PDStats(
         avg_lower=mean(lowers),
         avg_upper=mean(uppers),
@@ -42,7 +45,8 @@ def compute_stats(records: list[PDRecord]) -> PDStats | None:
         avg_total=mean(totals),
         median_lower=median(lowers),
         median_upper=median(uppers),
-        common_config=common
+        common_config=common,
+        uppers=uppers
     )
 
 def most_common_config(

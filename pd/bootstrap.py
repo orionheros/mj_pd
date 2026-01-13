@@ -4,7 +4,7 @@
 
 import sqlite3
 import sys
-from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
 from pd.platform.os_detect import get_platform
 from pd.platform.paths import init_paths
 from pd.startup.logging import init_logging
@@ -21,67 +21,82 @@ from pd.launcher.launcher import Launcher
 from pd.ui.widgets.db_selector import get_database_path
 
 def start_app():
-    platform = get_platform()
-    paths = init_paths(platform)
-    config = load_config(paths.config / "config.ini")
+    try:
+        platform = get_platform()
+        paths = init_paths(platform)
+        config = load_config(paths.config / "config.ini")
 
-    app = QApplication(sys.argv)
+        app = QApplication(sys.argv)
 
-    selected_lang = config["general"]["language"]
-    selected_module = config["launcher"].get("saved_data_package", "")   
+        selected_lang = config["general"]["language"]
+        selected_module = config["launcher"].get("saved_data_package", "")   
 
-    if config.getboolean("launcher", "show_on_startup", fallback=True):
-        launcher = Launcher(config, paths)
+        if config.getboolean("launcher", "show_on_startup", fallback=True):
+            launcher = Launcher(config, paths)
 
-        if launcher.exec() == QDialog.DialogCode.Accepted:
-            selected_lang, selected_module, set_default = launcher.get_results()
+            if launcher.exec() == QDialog.DialogCode.Accepted:
+                selected_lang, selected_module, set_default = launcher.get_results()
 
-            config["general"]["language"] = selected_lang
-            config["launcher"]["saved_data_package"] = selected_module
+                config["general"]["language"] = selected_lang
+                config["launcher"]["saved_data_package"] = selected_module
 
-            if set_default:
-                config["launcher"]["show_on_startup"] = "false"
+                if set_default:
+                    config["launcher"]["show_on_startup"] = "false"
 
-            with open(paths.config / "config.ini", 'w', encoding='utf-8') as f:
-                config.write(f)
-                
-            del launcher
+                with open(paths.config / "config.ini", 'w', encoding='utf-8') as f:
+                    config.write(f)
+                    
+                del launcher
+            else:
+                return
+
+        i18n = I18n(selected_lang)
+
+        if selected_module == "pd":
+            try:
+                init_logging(paths.logs)
+
+                db_path = get_database_path(config, paths, i18n)
+                with open(paths.config / "config.ini", 'w', encoding='utf-8') as f:
+                    config.write(f)
+                init_database(db_path)
+
+                conn = sqlite3.connect(db_path)
+                conn.execute("PRAGMA foreign_keys = ON;")
+
+                pd_repo = PDRepository(conn)
+                pd_service = PDService(pd_repo)
+                resources = ResourceManager()
+
+                ctx = AppContext(
+                    conn=conn,
+                    paths=paths,
+                    pd_service=pd_service,
+                    config=config,
+                    i18n=i18n,
+                    resources=resources
+                )
+
+                # check updates
+                from pd.ui.dialogs.about import check_update
+                from pd.__init__ import __version__ as current_version
+                info = check_update(current_version, platform)
+                if info:
+                    QMessageBox.information(
+                        None,
+                        i18n.t("update.update_available"),
+                        i18n.t("update.update_available_message").format(version=info["version"])
+                    )
+
+                run_ui(ctx, app)
+
+                del ctx
+                conn.close()
+            except Exception as e:
+                hse(e, i18n)
+
         else:
-            return
+            print(f"Unknown module selected: {selected_module}")
 
-    i18n = I18n(selected_lang)
-
-    if selected_module == "pd":
-        try:
-            init_logging(paths.logs)
-
-            db_path = get_database_path(config, paths, i18n)
-            with open(paths.config / "config.ini", 'w', encoding='utf-8') as f:
-                config.write(f)
-            init_database(db_path)
-
-            conn = sqlite3.connect(db_path)
-            conn.execute("PRAGMA foreign_keys = ON;")
-
-            pd_repo = PDRepository(conn)
-            pd_service = PDService(pd_repo)
-            resources = ResourceManager()
-
-            ctx = AppContext(
-                conn=conn,
-                paths=paths,
-                pd_service=pd_service,
-                config=config,
-                i18n=i18n,
-                resources=resources
-            )
-
-            run_ui(ctx, app)
-
-            del ctx
-            conn.close()
-        except Exception as e:
-            hse(e, i18n)
-
-    else:
-        print(f"Unknown module selected: {selected_module}")
+    except Exception as e:
+        hse(f"Critical startup error: {e}", None)

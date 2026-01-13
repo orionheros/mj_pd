@@ -80,7 +80,7 @@ class WashersChart(QWidget):
         self.plot_lower.scene().sigMouseClicked.connect(self._open_lchart_window)
         layout.addWidget(self.plot_lower)
 
-        # --- Scatter---
+        # --- Scatters---
         self.upper_scatter = pg.ScatterPlotItem(
             pen=None,
             brush=pg.mkBrush(0, 0, 200),    # blue
@@ -90,20 +90,31 @@ class WashersChart(QWidget):
             hoverable=True,
             tip=None
         )
+        self.upper_scatter_edge = pg.ScatterPlotItem(
+            pen=pg.mkPen('red', width=2),
+            brush=pg.mkBrush(255, 0, 0),    # red
+            size=12,
+            symbol='x',
+            name="Upper Washer (outlier)",
+            hoverable=True,
+            tip=None
+        )
         self.upper_mean_line = pg.InfiniteLine(
             angle=0,
             pen=pg.mkPen('blue', width=2, style=pg.QtCore.Qt.PenStyle.DashLine),
         )
         self.upper_scatter.sigHovered.connect(lambda item, points, ev: on_point_hovered(self.i18n, points, self.plot_upper))
+        self.upper_scatter_edge.sigHovered.connect(lambda item, points, ev: on_point_hovered(self.i18n, points, self.plot_upper))
         self.plot_upper.addItem(self.upper_mean_line)
         self.plot_upper.addItem(self.upper_scatter)
+        self.plot_upper.addItem(self.upper_scatter_edge)
         self.upper_mean_line.hide()
         self.plot_upper.addLegend()
 
         self.lower_scatter = pg.ScatterPlotItem(
             pen=None,
             brush=pg.mkBrush(0, 200, 0),    # green
-            size=8,
+            size=10,
             symbol='o',
             name="Lower Washer",
             hoverable=True,
@@ -158,13 +169,26 @@ class WashersChart(QWidget):
         upper_count = Counter(upper_washers)
         x_upper = list(upper_count.values())
         y_upper = list(upper_count.keys())
-        self.upper_scatter.setData(x=x_upper, y=y_upper)
         if upper_washers:
             upper_mean = round(sum(upper_washers) / len(upper_washers), 2)
             self.upper_mean_line.setValue(upper_mean)
             self.upper_mean_line.show()
+            x_normal, y_normal, x_red, y_red = [], [], [], []
+            tolerance = 0.06
+            eps = 1e-9
+            for x, y in zip(x_upper, y_upper):
+                if abs(y - upper_mean) >= tolerance - eps:
+                    x_red.append(x)
+                    y_red.append(y)                
+                else:
+                    x_normal.append(x)
+                    y_normal.append(y)
+            self.upper_scatter.setData(x=x_normal, y=y_normal)
+            self.upper_scatter_edge.setData(x=x_red, y=y_red)
         else:
             self.upper_mean_line.hide()
+            self.upper_scatter.setData(x=[], y=[])
+            self.upper_scatter_edge.setData(x=[], y=[])
         self.plot_upper.enableAutoRange()
 
         self.upper_washers_count = len(upper_washers)
@@ -209,28 +233,13 @@ class WashersChart(QWidget):
 
         plot.setYRange(ymin, ymax, padding=0)
 
-    def _on_point_hovered(self, item, points, ev, plot_widget):
-        if points is None or len(points) == 0:
-            return
-        p = points[0]
-        pos = p.pos()
-        x = pos.x()
-        y = pos.y()
-        label_x = self.i18n.t("charts.tool_tip_x")
-        label_y = self.i18n.t("charts.tool_tip_y")
-        text = f"{label_x}{int(x)}\n{label_y}{y:.2f}"
-        QToolTip.showText(
-            QCursor.pos(),
-            text,
-            plot_widget
-        )
-
     def _open_uchart_window(self, event):
         n = getattr(self, 'upper_washers_count', 0)
         model_name = getattr(self, 'model_name', '')
         model_id = getattr(self, 'model_id', '')
         self.uchart_win = ChartWindow(
             self.upper_scatter, 
+            self.upper_scatter_edge,
             self.upper_mean_line, 
             self.upper_chart_title, 
             self.i18n,

@@ -15,7 +15,7 @@ def on_point_hovered(i18n, points, plot_widget):
     y = pos.y()
     label_x = i18n.t("charts.tool_tip_x")
     label_y = i18n.t("charts.tool_tip_y")
-    text = f"{label_x}{int(x)}\n{label_y}{y:.2f}"
+    text = f"{label_x}{int(x)}\n{label_y}{y:.2f} mm"
     QToolTip.showText(
         QCursor.pos(),
         text,

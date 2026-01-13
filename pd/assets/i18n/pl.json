@@ -123,7 +123,9 @@
         "common_config": "Wspólna konfiguracja:",
         "common_config_tooltip": "Najczęściej występująca konfiguracja podkładek i sprężyny wśród wszystkich pompowtryskiwaczy tego modelu.\nMusi wystąpić co najmniej 5 razy, by się tutaj pojawiła.",
         "virtual_lower_label": "Wirtualna dolna podkładka:",
-        "virtual_upper_label": "Wirtualna górna podkładka:"
+        "virtual_upper_label": "Wirtualna górna podkładka:",
+        "outlier_info": "Tolerancja: 0.06 mm",
+        "outlier_upper": "P. górne poza tolerancją:"
     },
     "about": {
         "title": "Informacje",
@@ -140,6 +142,7 @@
         "no_update_title": "Aktualizacja niedostępna",
         "no_update_message": "Używasz najnowszej wersji aplikacji.",
         "update_available": "Dostępna aktualizacja!\nPobierz najnowszą wersję z: ",
+        "update_available_message": "Dostępna jest aktualizacja!\nWejdź w menu 'Pomoc' > 'O aplikacji', aby ją pobrać.",
         "update_available_title": "Aktualizacja dostępna",
         "change_text": "Co nowego",
         "want_update": "Czy chcesz pobrać aktualizację?",

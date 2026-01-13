@@ -58,7 +58,7 @@ class AboutDialog(QDialog):
         btn_close.clicked.connect(self.accept)
 
         check_upd = QPushButton(self.ctx.i18n.t("update.check_updates"))
-        check_upd.clicked.connect(self._check_updates)
+        check_upd.clicked.connect(self.check_updates)
 
         layout.addWidget(check_upd)
         layout.addWidget(btn_close)
@@ -97,7 +97,7 @@ class AboutDialog(QDialog):
         git_label.setCursor(Qt.CursorShape.PointingHandCursor)
         return git_label
 
-    def _check_updates(self):
+    def check_updates(self):
         try:
             info = check_update(
                 current_version=__version__, 
