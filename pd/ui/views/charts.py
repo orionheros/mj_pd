@@ -234,6 +234,8 @@ class WashersChart(QWidget):
         plot.setYRange(ymin, ymax, padding=0)
 
     def _open_uchart_window(self, event):
+        if not hasattr(self, 'upper_chart_title'):
+            return
         n = getattr(self, 'upper_washers_count', 0)
         model_name = getattr(self, 'model_name', '')
         model_id = getattr(self, 'model_id', '')
@@ -249,11 +251,14 @@ class WashersChart(QWidget):
         self.uchart_win.show()
 
     def _open_lchart_window(self, event):
+        if not hasattr(self, 'lower_chart_title'):
+            return
         n = getattr(self, 'lower_washers_count', 0)
         model_name = getattr(self, 'model_name', '')
         model_id = getattr(self, 'model_id', '')
         self.lchart_win = ChartWindow(
-            self.lower_scatter, 
+            self.lower_scatter,
+            None,
             self.lower_mean_line, 
             self.lower_chart_title, 
             self.i18n,

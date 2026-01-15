@@ -34,10 +34,15 @@ class AddNewDialog(QDialog):
 
         self.model_id = QComboBox()
         self.opening_pressure = QComboBox()
-        for mid, mname in self.ctx.pd_service.get_models():
+        self._models = sorted(self.ctx.pd_service.get_models(), key=lambda x: x[1].lower())
+        self._pressures = self.ctx.pd_service.get_opening_pressures()
+        for mid, mname in self._models:
             self.model_id.addItem(f"{mname}", userData=mid)
-        for pid, pval in self.ctx.pd_service.get_opening_pressures():
+        for pid, pval in self._pressures:
             self.opening_pressure.addItem(f"{pval}", userData=pid)
+
+        self.model_id.currentIndexChanged.connect(self._give_ok_pressure)
+        self._give_ok_pressure()
 
         self.washer1 = QLineEdit()
         self.washer2 = QLineEdit()
@@ -142,5 +147,30 @@ class AddNewDialog(QDialog):
         self.washer2.clear()
         self.spring_length.clear()
         self.final_pressure.clear()
-        
+        self.opening_pressure.setCurrentIndex(0)
 
+    def _give_ok_pressure(self):
+        model_id = self.model_id.currentData()
+        model_name = self.ctx.pd_service.get_model_name(model_id)
+        model_id = str(model_id) if model_id is not None else ""
+        for mid, mname in self._models:
+            if mid == model_id:
+                model_name = str(mname)
+                break
+        if len(model_name) < 3:
+            self.opening_pressure.setCurrentIndex(0)
+            return
+        if not model_name:
+            return
+        digit = str(model_name)[-3]
+        pressure_map = {
+            "0": "288",
+            "2": "292",
+            "3": "277",
+            "4": "263"
+        }
+        ok_pressure = pressure_map.get(digit, "")
+        if ok_pressure:
+            self.opening_pressure.setCurrentText(ok_pressure)
+        else:
+            self.opening_pressure.setCurrentIndex(0)

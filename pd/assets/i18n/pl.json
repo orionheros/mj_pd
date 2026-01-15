@@ -31,11 +31,14 @@
         "db_use_default": "Użyj domyślnej ścieżki bazy danych",
         "db_use_default_tooltip": "Windows: %localappdata%\\PDApp\\pd.db\nLinux: ~/.local/share/PDApp/pd.db\nMacOS: ~/Library/Application Support/PDApp/pd.db",
         "db_path_tooltip": "Ścieżka do aktualnie używanej bazy danych",
-        "language_restart_info": "Uruchom ponownie aplikację, aby zastosować zmiany języka."
+        "language_restart_info": "Uruchom ponownie aplikację, aby zastosować zmiany języka.",
+        "db_version": "PRAGMA bazy danych"
     },
     "errors": {
         "startup_failed": "Nie udało się uruchomić aplikacji.",
-        "title": "Wystąpił krytyczny błąd"
+        "title": "Wystąpił krytyczny błąd",
+        "db_incompatible": "Niezgodna wersja bazy danych. Program nie obsługuje tej nowszej wersji bazy danych.",
+        "update_prompt": "Czy chcesz pobrać aktualizację teraz?\nWymagana jest aktualizacja, aby uruchomić program."
     },
     "buttons": {
         "ok": "OK",
@@ -141,7 +144,7 @@
         "update_error": "Wystąpił błąd podczas sprawdzania aktualizacji.",
         "no_update_title": "Aktualizacja niedostępna",
         "no_update_message": "Używasz najnowszej wersji aplikacji.",
-        "update_available": "Dostępna aktualizacja!\nPobierz najnowszą wersję z: ",
+        "update_available": "Dostępna aktualizacja!\nPobierz najnowszą wersję: ",
         "update_available_message": "Dostępna jest aktualizacja!\nWejdź w menu 'Pomoc' > 'O aplikacji', aby ją pobrać.",
         "update_available_title": "Aktualizacja dostępna",
         "change_text": "Co nowego",

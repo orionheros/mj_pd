@@ -2,6 +2,7 @@
 # License: GPL v3 Copyright: 2026, Mateusz Jamróz
 # pd/ui/dialogs/about.py
 
+import markdown
 from PyQt6.QtWidgets import (
     QDialog, 
     QVBoxLayout,
@@ -128,19 +129,23 @@ class AboutDialog(QDialog):
         text_a = self.ctx.i18n.t("update.change_text")
         text_b = self.ctx.i18n.t("update.want_update")
         changelog = info.get("changes", "")
+        changelog_html = markdown.markdown(changelog)
         msg = (
-            f"{self.ctx.i18n.t('update.update_available')} {info['version']}\n\n"
-            f"{text_a}:\n{changelog}\n\n"
+            f"<div style='border: 2px solid #0080ff; padding: 8px;'>"
+            f"{self.ctx.i18n.t('update.update_available')} {info['version']}<br><hr>"
+            f"{text_a}:<br>{changelog_html}<br><hr>"
             f"{text_b}"
+            f"</div>"
         )
 
-        if QMessageBox.question(
-            self,
-            self.ctx.i18n.t("update.update_available_title"),
-            msg,
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        ) == QMessageBox.StandardButton.Yes:
-            
+        box = QMessageBox(self)
+        box.setWindowTitle(self.ctx.i18n.t("update.update_available_title"))
+        box.setTextFormat(Qt.TextFormat.RichText)
+        box.setText(msg)
+        box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setDefaultButton(QMessageBox.StandardButton.Yes)
+        
+        if box.exec() == QMessageBox.StandardButton.Yes:            
             try:
                 dest_dir = choose_download_dir(ctx=self.ctx)
                 if not dest_dir:

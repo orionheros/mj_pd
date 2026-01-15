@@ -76,7 +76,7 @@ class SettingsDialog(QDialog):
         self.db_use_default_cb.setChecked(self.ctx.config.getboolean("database", "use_default"))
         self.db_use_default_cb.setToolTip(t("settings.db_use_default_tooltip"))
 
-        # Label i przycisk do otwarcia folderu bazy danych
+        # Database path display
         db_path = self.ctx.config["database"].get("path", "")
         if not db_path:
             db_path = str(self.ctx.paths.data / "pd.db")
@@ -85,6 +85,12 @@ class SettingsDialog(QDialog):
         self.db_folder_label.setToolTip(t("settings.db_path_tooltip"))
         db_folder_row = QHBoxLayout()
         db_folder_row.addWidget(self.db_folder_label)
+
+        # Show pragma version of database
+        self.db_version = QLabel("")
+        version = self.ctx.conn.execute("PRAGMA user_version;").fetchone()[0]
+        text = t("settings.db_version")
+        self.db_version.setText(text + ": " + str(version))
 
         self.lang_restart_info = QLabel(t("settings.language_restart_info"))
         self.lang_restart_info.setStyleSheet("color: gray; font-style: italic;")
@@ -106,6 +112,8 @@ class SettingsDialog(QDialog):
         layout.addWidget(self.db_show_ask_cb)
         layout.addWidget(self.db_use_default_cb)
         layout.addLayout(db_folder_row)
+        layout.addSpacing(10)
+        layout.addWidget(self.db_version)
         layout.addStretch()
         layout.addWidget(self.lang_restart_info)
         layout.addLayout(btn_row)

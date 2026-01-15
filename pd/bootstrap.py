@@ -4,12 +4,15 @@
 
 import sqlite3
 import sys
+from pd import __version__ as current_version
+from pd import __PRAGMA__ as db_version
 from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
 from pd.platform.os_detect import get_platform
 from pd.platform.paths import init_paths
 from pd.startup.logging import init_logging
-from pd.core.database import init_database
+from pd.core.database import init_database, get_db_version, assert_db_version
 from pd.core.config import load_config
+from pd.startup.updates import update_on_startup
 from pd.core.i18n import I18n
 from pd.ui.app import run_ui
 from pd.startup.error_handler import handle_startup_error as hse
@@ -61,6 +64,9 @@ def start_app():
                     config.write(f)
                 init_database(db_path)
 
+                # Check database version and stop if incompatible
+                assert_db_version(db_path, db_version, i18n, app)
+
                 conn = sqlite3.connect(db_path)
                 conn.execute("PRAGMA foreign_keys = ON;")
 
@@ -77,10 +83,8 @@ def start_app():
                     resources=resources
                 )
 
-                # check updates
-                from pd.ui.dialogs.about import check_update
-                from pd.__init__ import __version__ as current_version
-                info = check_update(current_version, platform)
+                # check updates on startup
+                info = update_on_startup(current_version, platform)
                 if info:
                     QMessageBox.information(
                         None,

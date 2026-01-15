@@ -34,8 +34,9 @@ class StatsPanel(QWidget):
         self.median_lower = QLabel()
         self.median_upper = QLabel()
 
+        self.common_title = QLabel(self.i18n.t("stats_panel.common_config"))
+        self.common_title.setToolTip(self.i18n.t("stats_panel.common_config_tooltip"))
         self.common = QLabel()
-        self.common.setToolTip(self.i18n.t("stats_panel.common_config_tooltip"))
 
         self.virtual_label = QLabel("--")
         self.virtual_slider = QSlider(Qt.Orientation.Horizontal)
@@ -87,7 +88,7 @@ class StatsPanel(QWidget):
 
         layout.addRow("", QLabel(""))  # Spacer
 
-        layout.addRow(self.i18n.t("stats_panel.common_config"), self.common)
+        layout.addRow(self.common_title, self.common)
 
         layout.addRow("", QLabel(""))  # Spacer
 

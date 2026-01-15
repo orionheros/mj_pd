@@ -31,11 +31,14 @@
         "db_use_default": "Use default database path",
         "db_use_default_tooltip": "Windows: %localappdata%\\PDApp\\pd.db\nLinux: ~/.local/share/PDApp/pd.db\nMacOS: ~/Library/Application Support/PDApp/pd.db",
         "db_path_tooltip": "Path to the currently used database",
-        "language_restart_info": "Restart the application to apply language changes."
+        "language_restart_info": "Restart the application to apply language changes.",
+        "db_version": "Database PRAGMA"
     },
     "errors": {
         "startup_failed": "Failed to start the application.",
-        "title": "A critical error has occurred"
+        "title": "A critical error has occurred",
+        "db_incompatible": "Incompatible database version. The application does not support this newer database version.",
+        "update_prompt": "Do you want to download the update now?\nAn update is required to run the application."
     },
     "buttons": {
         "ok": "OK",
@@ -134,7 +137,7 @@
         "update_error": "An error occurred while checking for updates.",
         "no_update_title": "No Update Available",
         "no_update_message": "You are using the latest version of the application.",
-        "update_available": "Update Available!\nDownload the latest version from: ",
+        "update_available": "Update Available!\nDownload the latest version: ",
         "update_available_message": "An update is available!\nGo to 'Help' > 'About' to download it.",
         "update_available_title": "Update Available",
         "change_text": "What's New",
