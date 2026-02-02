@@ -66,14 +66,13 @@
         "final_pressure": "Obtained Pressure (bar)",
         "model_name": "Model Number"
     },
-
-
     "add_model": {
         "title": "Add Unit Pump Model",
         "label": "Add a new unit pump model:",
         "error_empty_name": "Please enter a model number!",
         "success": "Unit pump model added successfully.",
-        "error_generic": "An error occurred while adding the unit pump model."
+        "error_generic": "An error occurred while adding the unit pump model.",
+        "error_name_exists": "A model with the given number already exists!"
     },
     "table": {
         "model_id": "No",

@@ -6,10 +6,7 @@ import pyqtgraph as pg
 
 from PyQt6.QtWidgets import (
     QWidget, 
-    QVBoxLayout,
-    QToolTip
-)
-from PyQt6.QtGui import QCursor
+    QVBoxLayout,)
 
 from collections import Counter
 

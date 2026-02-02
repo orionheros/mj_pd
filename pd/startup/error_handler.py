@@ -16,7 +16,7 @@ def handle_startup_error(exception: Exception, i18n: I18n | None = None) -> None
             QMessageBox.critical(
                 None,
                 i18n.t("app.title"),
-                i18n.t("error.startup_failed").format(str(exception))
+                i18n.t("errors.startup_failed").format(str(exception))
             )
         else:
             raise RuntimeError

@@ -49,6 +49,9 @@ class PDService:
     def count_model(self, model_id: str) -> int:
         return self.repo.count_by_model(model_id)
     
+    def check_model_exists(self, model_name: str) -> bool:
+        return self.repo.check_model_exists(model_name)
+    
     def create_model(
         self,
         model_id: str,

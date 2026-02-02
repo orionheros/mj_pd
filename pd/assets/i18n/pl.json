@@ -66,14 +66,13 @@
         "final_pressure": "Ciśnienie otrzymane (bar)",
         "model_name": "Numer modelu"
     },
-
-    
     "add_model": {
         "title": "Dodawanie modelu pompowtryskiwacza",
         "label": "Dodaj nowy model pompowtryskiwacza:",
         "error_empty_name": "Wprowadź numer modelu!",
         "success": "Model pompowtryskiwacza został pomyślnie dodany.",
-        "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza."
+        "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza.",
+        "error_name_exists": "Model o podanym numerze już istnieje!"
     },
     "edit_unit": {
         "title": "Edycja pompowtryskiwacza",

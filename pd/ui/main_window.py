@@ -21,7 +21,8 @@ from pd.ui.widgets.settings import SettingsDialog
 from pd.ui.dialogs.add_new import AddNewDialog
 from pd.ui.dialogs.add_model import AddModelDialog
 from pd.ui.dialogs.edit_unit import EditUnitDialog
-from pd.ui.dialogs.del_unit import DelModelDialog
+from pd.ui.dialogs.del_unit import DelPumpDialog
+from pd.ui.dialogs.del_model import DelModelDialog
 from pd.ui.dialogs.about import AboutDialog
 from pd.ui.dialogs.help import HelpDialog
 from pd.ui.views.charts_area import ChartsArea
@@ -76,12 +77,6 @@ class MainWindow(QMainWindow):
         add_action.triggered.connect(self._open_add_dialog)
         edit_menu.addAction(add_action)
 
-        # Add new model of pump unit
-        # if it's not in the pump unit models list yet
-        new_model = QAction(self.i18n.t("menu.add_model"), self)
-        new_model.triggered.connect(lambda: AddModelDialog(self.ctx).exec())
-        edit_menu.addAction(new_model)
-
         # Edit selected unit
         edit_unit = QAction(self.i18n.t("menu.edit_unit"), self)
         edit_unit.triggered.connect(self._edit_selected_unit)
@@ -91,6 +86,19 @@ class MainWindow(QMainWindow):
         del_unit = QAction(self.i18n.t("menu.delete_unit"), self)
         del_unit.triggered.connect(self._delete_selected_unit)
         edit_menu.addAction(del_unit)
+
+        edit_menu.addSeparator()
+
+        # Add new model of pump unit
+        # if it's not in the pump unit models list yet
+        new_model = QAction(self.i18n.t("menu.add_model"), self)
+        new_model.triggered.connect(lambda: AddModelDialog(self.ctx).exec())
+        edit_menu.addAction(new_model)
+
+        # Delete pump unit model
+        del_model = QAction(self.i18n.t("menu.delete_model"), self)
+        del_model.triggered.connect(lambda: DelModelDialog(self.ctx).exec())
+        edit_menu.addAction(del_model)
 
         # HELP MENU
         # Help
@@ -209,7 +217,7 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, self.i18n.t("delete_unit.title"), self.i18n.t("delete_unit.no_selection"))
             return
         pd_id, row = result
-        dlg = DelModelDialog(self.ctx, pd_id)
+        dlg = DelPumpDialog(self.ctx, pd_id)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.refresh()
 

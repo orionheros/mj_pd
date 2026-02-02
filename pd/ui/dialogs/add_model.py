@@ -53,6 +53,10 @@ class AddModelDialog(QDialog):
             QMessageBox.warning(self, self.ctx.i18n.t("add_model.title"),
                                 self.ctx.i18n.t("add_model.error_empty_name"))
             return
+        if self.ctx.pd_service.check_model_exists(name):
+            QMessageBox.warning(self, self.ctx.i18n.t("add_model.title"),
+                                self.ctx.i18n.t("add_model.error_name_exists"))
+            return
         try:
             self.ctx.pd_service.add_model(name)
             QMessageBox.information(self, self.ctx.i18n.t("add_model.title"),

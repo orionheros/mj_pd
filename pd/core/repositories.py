@@ -28,6 +28,12 @@ class PDRepository:
         cursor.execute("SELECT id, model_name FROM pd_models")
         return cursor.fetchall()
     
+    def check_model_exists(self, model_name: str) -> bool:
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM pd_models WHERE model_name = ?", (model_name,))
+        count = cursor.fetchone()[0]
+        return count > 0
+    
     def get_unit_by_pd_id(self, pd_id: str) -> PD | None:
         cursor = self.conn.cursor()
         cursor.execute(
