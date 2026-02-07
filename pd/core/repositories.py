@@ -124,11 +124,10 @@ class PDRepository:
             upper.append(row[1])
         return lower, upper
         
-    def get_all(self) -> list[PD]:
+    def get_all_models(self) -> list[tuple[int, str]]:
         cursor = self.conn.cursor()
-        cursor.execute("SELECT id, model_id, washer1_thickness, washer2_thickness, spring_length, final_pressure, opening_pressure_id FROM pd")
-        rows = cursor.fetchall()
-        return [PD(*row) for row in rows]
+        cursor.execute("SELECT id, model_name FROM pd_models")
+        return cursor.fetchall()
 
     def get_all_with_name(self) -> list[PDView]:
         cursor = self.conn.cursor()
@@ -200,5 +199,16 @@ class PDRepository:
         self.conn.execute(
             "DELETE FROM pd WHERE id = ?",
             (pd_id,)
+        )
+        self.conn.commit()
+
+    def delete_model(self, model_id: int) -> None:
+        self.conn.execute(
+            "DELETE FROM pd WHERE model_id = ?",
+            (model_id,)
+        )
+        self.conn.execute(
+            "DELETE FROM pd_models WHERE id = ?",
+            (model_id,)
         )
         self.conn.commit()

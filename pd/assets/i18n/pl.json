@@ -15,7 +15,8 @@
         "add_model": "Dodaj model pompowtryskiwacza",
         "delete_unit": "Usuń pompowtryskiwacz",
         "edit_unit": "Edytuj pompowtryskiwacz",
-        "about": "O aplikacji"
+        "about": "O aplikacji",
+        "delete_model": "Usuń model pompowtryskiwacza"
     },
     "settings": {
         "title": "Ustawienia",
@@ -191,5 +192,27 @@
         "download_finished": "Pobieranie zakończone.",
         "close": "Zamknij",
         "download_error": "Wystąpił błąd podczas pobierania pliku."
+    },
+    "delete_model": {
+        "title": "Usuwanie modelu pompowtryskiwacza",
+        "confirmation": "Czy na pewno chcesz usunąć wybrany model pompowtryskiwacza?",
+        "no_selection": "Nie wybrano modelu do usunięcia.",
+        "delete_button": "Usuń",
+        "cancel_button": "Anuluj",
+        "deleted_message": "Model pompowtryskiwacza został pomyślnie usunięty.",
+        "error_generic": "Wystąpił błąd podczas usuwania modelu pompowtryskiwacza",
+        "selected_model": "Wybrany model:",
+        "count_of_pd": "Ilość sztuk: {count}",
+        "no_pd": "Brak sztuk tego modelu",
+        "sort_button": "Sortuj",
+        "sort_button_tooltip": "Sortuj kolejno po nazwie rosnąco, malejąco, a następnie nieposortowane (domyślnie po ID)",
+        "no_selection_title": "Brak wyboru",
+        "no_selection_message": "Nie wybrano modelu do usunięcia. Wybierz model z listy, a następnie kliknij 'Usuń'.",
+        "confirm_title": "Potwierdzenie usunięcia",
+        "confirm_message": "Czy na pewno chcesz usunąć model pompowtryskiwacza '{model_name}'? Wszystkie pompowtryskiwacze tego modelu również zostaną usunięte.",
+        "success_title": "Pomyślnie usunięto",
+        "success_message": "Model pompowtryskiwacza '{model_name}' oraz wszystkie pompowtryskiwacze tego modelu zostały pomyślnie usunięte.",
+        "error_title": "Błąd usuwania",
+        "error_message": "Wystąpił błąd podczas usuwania modelu pompowtryskiwacza."
     }
 }

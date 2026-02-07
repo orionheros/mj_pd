@@ -38,7 +38,10 @@ class PDService:
         return self.repo.get_opening_press_value(opening_pressure_id)
     
     def list_models(self) -> list[PD]:
-        return self.repo.get_all()
+        return self.repo.get_all_models()
+    
+    def delete_model(self, model_id: int) -> None:
+        self.repo.delete_model(model_id)
     
     def delete_unit(self, pd_id: int) -> None:
         self.repo.delete(pd_id)
