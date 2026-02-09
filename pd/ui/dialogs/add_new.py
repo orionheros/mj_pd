@@ -83,7 +83,7 @@ class AddNewDialog(QDialog):
 
         btn_new.clicked.connect(self._save_and_new)
         btn_ok.clicked.connect(self._on_accept)
-        btn_cancel.clicked.connect(self.reject)
+        btn_cancel.clicked.connect(self._reject)
 
         btn_row = QHBoxLayout()
         btn_row.addWidget(btn_new)
@@ -120,6 +120,7 @@ class AddNewDialog(QDialog):
         try:
             self._save()
             self._clear_fields()
+            self._give_ok_pressure()
             self.model_id.setFocus()
         except Exception as e:
             QMessageBox.critical(
@@ -128,6 +129,17 @@ class AddNewDialog(QDialog):
                 str(e)
             )
 
+    def _reject(self):
+        try:
+            self.reject()
+            if self._on_accept_callback:
+                self._on_accept_callback()
+        except Exception as e:
+            QMessageBox.critical(
+                self,
+                self.ctx.i18n.t("errors.title"),
+                str(e)
+            )
 
     def _collect_data(self):
         def parse_float(val):

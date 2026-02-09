@@ -3,19 +3,36 @@
 # pd/ui/views/charts.py
 
 import pyqtgraph as pg
+from pyqtgraph.graphicsItems.ButtonItem import ButtonItem
 
 from PyQt6.QtWidgets import (
     QWidget, 
     QVBoxLayout,
-    QToolTip
 )
-from PyQt6.QtGui import QCursor
+from PyQt6.QtCore import Qt, QObject, QEvent
 
 from collections import Counter
 
 from pd.ui.widgets.chart_window import ChartWindow
 from pd.ui.utils.tooltip import on_point_hovered
 
+class ChartAreaClickFilter(QObject):
+    def __init__(self, parent, open_window_callback, plot_widget):
+        super().__init__(parent)
+        self.open_window_callback = open_window_callback
+        self.plot_widget = plot_widget
+
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Type.MouseButtonPress:
+            if event.button() == Qt.MouseButton.LeftButton:
+                items = self.plot_widget.scene().items(event.position())
+                for item in items:
+                    if isinstance(item, ButtonItem):
+                        return False  # Ignore clicks on ButtonItems
+                self.open_window_callback(event)
+                return True
+        return False
+    
 # Y - two decimal places
 class FormattedAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
@@ -27,8 +44,6 @@ class IntAxis(pg.AxisItem):
         return [str(int(round(v))) for v in values]
 
 class WashersChart(QWidget):
-
-
     def set_chart_title(self):
         # Set titles for both charts
         title_upper = self.i18n.t("charts.chart1_title") + " " + self.i18n.t("charts.chart1_title_upper")
@@ -37,7 +52,10 @@ class WashersChart(QWidget):
         self.lower_chart_title = f"{title_lower}"
         self.plot_upper.setTitle(f"<div style='font-weight:bold'>{title_upper}</div>")
         self.plot_lower.setTitle(f"<div style='font-weight:bold'>{title_lower}</div>")
-        
+        self.click_filter_upper = ChartAreaClickFilter(self.plot_upper, self._open_uchart_window, self.plot_upper)
+        self.click_filter_lower = ChartAreaClickFilter(self.plot_lower, self._open_lchart_window, self.plot_lower)
+        self.plot_upper.viewport().installEventFilter(self.click_filter_upper)
+        self.plot_lower.viewport().installEventFilter(self.click_filter_lower)
 
     def __init__(self, i18n, parent=None):
         super().__init__(parent)
@@ -61,7 +79,6 @@ class WashersChart(QWidget):
         self.plot_upper.setLabel("left", label_left)
         self.plot_upper.setLabel("bottom", label_bottom)
         self.plot_upper.setBackground('w')
-        self.plot_upper.scene().sigMouseClicked.connect(self._open_uchart_window)
         layout.addWidget(self.plot_upper)
 
         # --- Chart for lower spring plate ---
@@ -77,7 +94,6 @@ class WashersChart(QWidget):
         self.plot_lower.setLabel("left", label_left)
         self.plot_lower.setLabel("bottom", label_bottom)
         self.plot_lower.setBackground('w')
-        self.plot_lower.scene().sigMouseClicked.connect(self._open_lchart_window)
         layout.addWidget(self.plot_lower)
 
         # --- Scatters---

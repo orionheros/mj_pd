@@ -37,8 +37,14 @@ class PDService:
     def get_opening_press_value(self, opening_pressure_id: int) -> float:
         return self.repo.get_opening_press_value(opening_pressure_id)
     
+    def get_totals_by_model(self, model_id: str) -> list[float]:
+        return self.repo.get_totals_by_model(model_id)
+    
     def list_models(self) -> list[PD]:
-        return self.repo.get_all()
+        return self.repo.get_all_models()
+    
+    def delete_model(self, model_id: int) -> None:
+        self.repo.delete_model(model_id)
     
     def delete_unit(self, pd_id: int) -> None:
         self.repo.delete(pd_id)
@@ -48,6 +54,9 @@ class PDService:
     
     def count_model(self, model_id: str) -> int:
         return self.repo.count_by_model(model_id)
+    
+    def check_model_exists(self, model_name: str) -> bool:
+        return self.repo.check_model_exists(model_name)
     
     def create_model(
         self,

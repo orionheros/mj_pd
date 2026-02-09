@@ -8,8 +8,6 @@ All magic happens here.
 """
 
 from statistics import mean, median
-from collections import Counter
-from itertools import combinations
 from dataclasses import dataclass
 
 from pd.core.repositories import PDRecord
@@ -24,6 +22,7 @@ class PDStats:
     median_upper: float
     common_config: tuple[float, float, float] | None # lower, upper, spring
     uppers: list[float]
+    all_totals: list[float] | None = None
 
 def compute_stats(records: list[PDRecord]) -> PDStats | None:
     if not records:
@@ -46,7 +45,8 @@ def compute_stats(records: list[PDRecord]) -> PDStats | None:
         median_lower=median(lowers),
         median_upper=median(uppers),
         common_config=common,
-        uppers=uppers
+        uppers=uppers,
+        all_totals=totals
     )
 
 def most_common_config(

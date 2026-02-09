@@ -5,7 +5,7 @@
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QMessageBox
 from pd.app_context import AppContext
 
-class DelModelDialog(QDialog):
+class DelPumpDialog(QDialog):
     def __init__(self, ctx: AppContext, pd_id: int, parent=None):
         super().__init__(parent)
         self.ctx = ctx

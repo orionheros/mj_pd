@@ -17,11 +17,18 @@ from PyQt6.QtCore import QEvent, Qt
 
 from pd.app_context import AppContext
 from pd.core.config import load_config, save_config
+from pd.core.ui_state import (
+    restore_settings, 
+    save_settings, 
+    restore_splitter_state,
+    save_splitter_state
+)
 from pd.ui.widgets.settings import SettingsDialog
 from pd.ui.dialogs.add_new import AddNewDialog
 from pd.ui.dialogs.add_model import AddModelDialog
 from pd.ui.dialogs.edit_unit import EditUnitDialog
-from pd.ui.dialogs.del_unit import DelModelDialog
+from pd.ui.dialogs.del_unit import DelPumpDialog
+from pd.ui.dialogs.del_model import DelModelDialog
 from pd.ui.dialogs.about import AboutDialog
 from pd.ui.dialogs.help import HelpDialog
 from pd.ui.views.charts_area import ChartsArea
@@ -38,11 +45,13 @@ class MainWindow(QMainWindow):
         self.i18n = ctx.i18n
         self.resources = ctx.resources
         self.pd_service = ctx.pd_service
+        self._restore_splitter_pending = True
 
         self.setWindowTitle("PD UI Manager")
         self.setWindowIcon(ctx.resources.icon("logo"))
         
-        self.restore_settings()
+        restore_settings(self)
+        restored = restore_splitter_state(self)
 
         main_widget = QWidget()
         layout = QVBoxLayout(main_widget)
@@ -76,12 +85,6 @@ class MainWindow(QMainWindow):
         add_action.triggered.connect(self._open_add_dialog)
         edit_menu.addAction(add_action)
 
-        # Add new model of pump unit
-        # if it's not in the pump unit models list yet
-        new_model = QAction(self.i18n.t("menu.add_model"), self)
-        new_model.triggered.connect(lambda: AddModelDialog(self.ctx).exec())
-        edit_menu.addAction(new_model)
-
         # Edit selected unit
         edit_unit = QAction(self.i18n.t("menu.edit_unit"), self)
         edit_unit.triggered.connect(self._edit_selected_unit)
@@ -91,6 +94,19 @@ class MainWindow(QMainWindow):
         del_unit = QAction(self.i18n.t("menu.delete_unit"), self)
         del_unit.triggered.connect(self._delete_selected_unit)
         edit_menu.addAction(del_unit)
+
+        edit_menu.addSeparator()
+
+        # Add new model of pump unit
+        # if it's not in the pump unit models list yet
+        new_model = QAction(self.i18n.t("menu.add_model"), self)
+        new_model.triggered.connect(lambda: AddModelDialog(self.ctx).exec())
+        edit_menu.addAction(new_model)
+
+        # Delete pump unit model
+        del_model = QAction(self.i18n.t("menu.delete_model"), self)
+        del_model.triggered.connect(self._delete_model_unit)
+        edit_menu.addAction(del_model)
 
         # HELP MENU
         # Help
@@ -106,21 +122,22 @@ class MainWindow(QMainWindow):
 
         #
         ##
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.setStyleSheet("""
+        self.splitter = QSplitter(Qt.Orientation.Horizontal)
+        self.splitter.setStyleSheet("""
             QSplitter::handle {
                 background-color: lightblue;
                 border-radius: 8px;
                 min-width: 5px;
             }
         """)
+        self.splitter.splitterMoved.connect(self._splitter_moved)
         
         #
         # TABLE AREA
         self.table = PDTable(self.i18n)
         self.table.rowSelected.connect(self._row_selected)
         self.table.setMinimumWidth(0)
-        splitter.addWidget(self.table)
+        self.splitter.addWidget(self.table)
         self.table.table.installEventFilter(self)
         self.table.search.installEventFilter(self)
 
@@ -128,15 +145,16 @@ class MainWindow(QMainWindow):
         # CHARTS AREA
         self.charts_area = ChartsArea(self.i18n, self.ctx)
         self.charts_area.setMinimumWidth(200)
-        splitter.addWidget(self.charts_area)
-        splitter.setSizes([500, 900])
+        self.splitter.addWidget(self.charts_area)
+        if not restored:
+            self.splitter.setSizes([300, 700])
 
-        splitter.setStretchFactor(0, 0)
-        splitter.setStretchFactor(1, 1)
-        splitter.setCollapsible(0, True)
-        splitter.setCollapsible(1, False)
+        self.splitter.setStretchFactor(0, 0)
+        self.splitter.setStretchFactor(1, 1)
+        self.splitter.setCollapsible(0, True)
+        self.splitter.setCollapsible(1, False)
 
-        layout.addWidget(splitter)
+        layout.addWidget(self.splitter)
         self.setCentralWidget(main_widget)
         self.refresh()
 
@@ -147,31 +165,26 @@ class MainWindow(QMainWindow):
         
         self.table.set_data(models)
 
+    def showEvent(self, event):
+        super().showEvent(event)
+
+        if self._restore_splitter_pending:
+            restore_splitter_state(self)
+            self._restore_splitter_pending = False
+
     def closeEvent(self, event: QEvent):
-        self.save_settings()
-        event.accept()
-
-    def restore_settings(self):
         config = load_config(self.paths.config / "config.ini")
-        if "ui" in config and "geometry" in config["ui"]:
-            geometry = bytes.fromhex(config["ui"]["geometry"])
-            self.restoreGeometry(geometry)
-        if "ui" in config and "window_state" in config["ui"]:
-            window_state = bytes.fromhex(config["ui"]["window_state"])
-            self.restoreState(window_state)
-
-    def save_settings(self):
-        config = load_config(self.paths.config / "config.ini")
-        config["ui"]["geometry"] = self.saveGeometry().toHex().data().decode()
-        config["ui"]["window_state"] = self.saveState().toHex().data().decode()
+        save_settings(self, config)
+        save_splitter_state(self, config)
         save_config(config, self.paths.config / "config.ini")
+        event.accept()
 
     def _open_add_dialog(self):
         dlg = AddNewDialog(self.ctx, on_accept_callback=self.refresh)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.refresh()
 
-    def get_selected_pd_id(self) -> int | None:
+    def _get_selected_pd_id(self) -> int | None:
         selected = self.table.table.selectedItems()  # self.table to PDTable, a PDTable.table to QTableWidget
         if not selected:
             return None
@@ -194,7 +207,7 @@ class MainWindow(QMainWindow):
             self.charts_area.set_title(count, model)
 
     def _edit_selected_unit(self):
-        result = self.get_selected_pd_id()
+        result = self._get_selected_pd_id()
         if result is None:
             QMessageBox.warning(self, self.i18n.t("edit_unit.title"), self.i18n.t("edit_unit.no_selection"))
             return
@@ -204,13 +217,21 @@ class MainWindow(QMainWindow):
             self.refresh()
 
     def _delete_selected_unit(self):
-        result = self.get_selected_pd_id()
+        result = self._get_selected_pd_id()
         if result is None:
             QMessageBox.warning(self, self.i18n.t("delete_unit.title"), self.i18n.t("delete_unit.no_selection"))
             return
         pd_id, row = result
-        dlg = DelModelDialog(self.ctx, pd_id)
+        dlg = DelPumpDialog(self.ctx, pd_id)
         if dlg.exec() == QDialog.DialogCode.Accepted:
+            self.refresh()
+
+    def _delete_model_unit(self):
+        # for refreshing the list of models after deletion, not for showing the dialog
+        dlg = DelModelDialog(self.ctx)
+        if dlg.exec() == QDialog.DialogCode.Accepted:
+            self.refresh()
+        if dlg.exec() == QDialog.DialogCode.Rejected:
             self.refresh()
 
     def _show_help(self):
@@ -220,6 +241,9 @@ class MainWindow(QMainWindow):
         self.help_action.show()
         self.help_action.raise_()
         self.help_action.activateWindow()
+
+    def _splitter_moved(self, pos, index):
+        self._last_splitter_pos = self.splitter.saveState()
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.Type.KeyPress:

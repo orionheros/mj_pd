@@ -15,7 +15,8 @@
         "add_model": "Dodaj model pompowtryskiwacza",
         "delete_unit": "Usuń pompowtryskiwacz",
         "edit_unit": "Edytuj pompowtryskiwacz",
-        "about": "O aplikacji"
+        "about": "O aplikacji",
+        "delete_model": "Usuń model pompowtryskiwacza"
     },
     "settings": {
         "title": "Ustawienia",
@@ -66,14 +67,13 @@
         "final_pressure": "Ciśnienie otrzymane (bar)",
         "model_name": "Numer modelu"
     },
-
-    
     "add_model": {
         "title": "Dodawanie modelu pompowtryskiwacza",
         "label": "Dodaj nowy model pompowtryskiwacza:",
         "error_empty_name": "Wprowadź numer modelu!",
         "success": "Model pompowtryskiwacza został pomyślnie dodany.",
-        "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza."
+        "error_generic": "Wystąpił błąd podczas dodawania modelu pompowtryskiwacza.",
+        "error_name_exists": "Model o podanym numerze już istnieje!"
     },
     "edit_unit": {
         "title": "Edycja pompowtryskiwacza",
@@ -128,7 +128,11 @@
         "virtual_lower_label": "Wirtualna dolna podkładka:",
         "virtual_upper_label": "Wirtualna górna podkładka:",
         "outlier_info": "Tolerancja: 0.06 mm",
-        "outlier_upper": "P. górne poza tolerancją:"
+        "outlier_upper": "P. górne poza tolerancją:",
+        "total_distribution": "Rozkład grubości łącznie: ",
+        "total_distribution_tooltip": "Histogram pokazujący rozkład grubości łącznie (podkładki + sprężyna) dla wszystkich pompowtryskiwaczy tego modelu.",
+        "thickness": "Łączna grubość podkładek i sprężyny (mm)",
+        "count": "Ilość sztuk"
     },
     "about": {
         "title": "Informacje",
@@ -192,5 +196,27 @@
         "download_finished": "Pobieranie zakończone.",
         "close": "Zamknij",
         "download_error": "Wystąpił błąd podczas pobierania pliku."
+    },
+    "delete_model": {
+        "title": "Usuwanie modelu pompowtryskiwacza",
+        "confirmation": "Czy na pewno chcesz usunąć wybrany model pompowtryskiwacza?",
+        "no_selection": "Nie wybrano modelu do usunięcia.",
+        "delete_button": "Usuń",
+        "cancel_button": "Anuluj",
+        "deleted_message": "Model pompowtryskiwacza został pomyślnie usunięty.",
+        "error_generic": "Wystąpił błąd podczas usuwania modelu pompowtryskiwacza",
+        "selected_model": "Wybrany model:",
+        "count_of_pd": "Ilość sztuk: {count}",
+        "no_pd": "Brak sztuk tego modelu",
+        "sort_button": "Sortuj",
+        "sort_button_tooltip": "Sortuj kolejno po nazwie rosnąco, malejąco, a następnie nieposortowane (domyślnie po ID)",
+        "no_selection_title": "Brak wyboru",
+        "no_selection_message": "Nie wybrano modelu do usunięcia. Wybierz model z listy, a następnie kliknij 'Usuń'.",
+        "confirm_title": "Potwierdzenie usunięcia",
+        "confirm_message": "Czy na pewno chcesz usunąć model pompowtryskiwacza '{model_name}'? Wszystkie pompowtryskiwacze tego modelu również zostaną usunięte.",
+        "success_title": "Pomyślnie usunięto",
+        "success_message": "Model pompowtryskiwacza '{model_name}' oraz wszystkie pompowtryskiwacze tego modelu zostały pomyślnie usunięte.",
+        "error_title": "Błąd usuwania",
+        "error_message": "Wystąpił błąd podczas usuwania modelu pompowtryskiwacza."
     }
 }

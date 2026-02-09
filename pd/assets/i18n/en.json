@@ -15,7 +15,8 @@
         "add_model": "Add Unit Pump Model",
         "delete_unit": "Delete Unit Pump",
         "edit_unit": "Edit Unit Pump",
-        "about": "About"
+        "about": "About",
+        "delete_model": "Delete Unit Pump Model"
     },
     "settings": {
         "title": "Settings",
@@ -66,14 +67,13 @@
         "final_pressure": "Obtained Pressure (bar)",
         "model_name": "Model Number"
     },
-
-
     "add_model": {
         "title": "Add Unit Pump Model",
         "label": "Add a new unit pump model:",
         "error_empty_name": "Please enter a model number!",
         "success": "Unit pump model added successfully.",
-        "error_generic": "An error occurred while adding the unit pump model."
+        "error_generic": "An error occurred while adding the unit pump model.",
+        "error_name_exists": "A model with the given number already exists!"
     },
     "table": {
         "model_id": "No",
@@ -121,7 +121,11 @@
         "virtual_lower": "Virtual Lower Thickness:",
         "virtual_upper": "Virtual Upper Thickness:",
         "outlier_info": "Tolerance: 0.06 mm",
-        "outlier_upper": "Up. Plates Out of Tolerance:"
+        "outlier_upper": "Up. Plates Out of Tolerance:",
+        "total_distribution": "Total Thickness Distribution: ",
+        "total_distribution_tooltip": "A histogram showing the distribution of total thickness (washers + spring) for all unit pumps of this model.",
+        "thickness": "Total thickness of washers and spring (mm)",
+        "count": "Count"
     },
     "about": {
         "title": "About",
@@ -185,5 +189,27 @@
         "download_finished": "Download complete.",
         "close": "Close",
         "download_error": "An error occurred while downloading the file."
+    },
+    "delete_model": {
+        "title": "Delete Unit Pump Model",
+        "confirmation": "Are you sure you want to delete the selected unit pump model? This will also delete all unit pumps associated with this model.",
+        "no_selection": "No unit pump model selected for deletion.",
+        "delete_button": "Delete",
+        "cancel_button": "Cancel",
+        "deleted_message": "Unit pump model and associated unit pumps deleted successfully.",
+        "error_generic": "An error occurred while deleting the unit pump model.",
+        "selected_model": "Selected Model:",
+        "count_of_pd": "{count} unit pump(s) of this model",
+        "no_pd": "No unit pumps of this model",
+        "sort_button": "Sort",
+        "sort_button_tooltip": "Sort the list of models by model number in ascending, descending order or unsorted (original order by ID)",
+        "no_selection_title": "No Selection",
+        "no_selection_message": "No model selected for deletion. Please select a model from the list and then click 'Delete'.",
+        "confirm_title": "Delete Confirmation", 
+        "confirm_message": "Are you sure you want to delete the unit pump model '{model_name}'? All unit pumps of this model will also be deleted.",
+        "success_title": "Successfully Deleted",
+        "success_message": "The unit pump model '{model_name}' and all unit pumps of this model have been successfully deleted.",
+        "error_title": "Deletion Error",    
+        "error_message": "An error occurred while deleting the unit pump model."
     }
 }

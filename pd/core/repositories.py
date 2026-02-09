@@ -28,6 +28,12 @@ class PDRepository:
         cursor.execute("SELECT id, model_name FROM pd_models")
         return cursor.fetchall()
     
+    def check_model_exists(self, model_name: str) -> bool:
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM pd_models WHERE model_name = ?", (model_name,))
+        count = cursor.fetchone()[0]
+        return count > 0
+    
     def get_unit_by_pd_id(self, pd_id: str) -> PD | None:
         cursor = self.conn.cursor()
         cursor.execute(
@@ -118,11 +124,10 @@ class PDRepository:
             upper.append(row[1])
         return lower, upper
         
-    def get_all(self) -> list[PD]:
+    def get_all_models(self) -> list[tuple[int, str]]:
         cursor = self.conn.cursor()
-        cursor.execute("SELECT id, model_id, washer1_thickness, washer2_thickness, spring_length, final_pressure, opening_pressure_id FROM pd")
-        rows = cursor.fetchall()
-        return [PD(*row) for row in rows]
+        cursor.execute("SELECT id, model_name FROM pd_models")
+        return cursor.fetchall()
 
     def get_all_with_name(self) -> list[PDView]:
         cursor = self.conn.cursor()
@@ -196,3 +201,22 @@ class PDRepository:
             (pd_id,)
         )
         self.conn.commit()
+
+    def delete_model(self, model_id: int) -> None:
+        self.conn.execute(
+            "DELETE FROM pd WHERE model_id = ?",
+            (model_id,)
+        )
+        self.conn.execute(
+            "DELETE FROM pd_models WHERE id = ?",
+            (model_id,)
+        )
+        self.conn.commit()
+
+    def get_totals_by_model(self, model_id: str) -> list[float]:
+        cur = self.conn.cursor()
+        cur.execute(
+            "SELECT washer1_thickness, washer2_thickness, spring_length FROM pd WHERE model_id = ?",
+            (model_id,)
+        )
+        return [row[0] + row[1] + row[2] for row in cur.fetchall()]

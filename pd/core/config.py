@@ -18,6 +18,9 @@ DEFAULT_CONFIG = {
     "ui": {
         "font_size": "12",
         "show_tips": "true",
+        "geometry": "",
+        "window_state": "",
+        "splitter_state": "",
     },
     "logging": {
         "level": "INFO",
