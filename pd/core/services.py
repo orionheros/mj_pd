@@ -37,6 +37,9 @@ class PDService:
     def get_opening_press_value(self, opening_pressure_id: int) -> float:
         return self.repo.get_opening_press_value(opening_pressure_id)
     
+    def get_totals_by_model(self, model_id: str) -> list[float]:
+        return self.repo.get_totals_by_model(model_id)
+    
     def list_models(self) -> list[PD]:
         return self.repo.get_all_models()
     

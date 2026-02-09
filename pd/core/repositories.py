@@ -212,3 +212,11 @@ class PDRepository:
             (model_id,)
         )
         self.conn.commit()
+
+    def get_totals_by_model(self, model_id: str) -> list[float]:
+        cur = self.conn.cursor()
+        cur.execute(
+            "SELECT washer1_thickness, washer2_thickness, spring_length FROM pd WHERE model_id = ?",
+            (model_id,)
+        )
+        return [row[0] + row[1] + row[2] for row in cur.fetchall()]

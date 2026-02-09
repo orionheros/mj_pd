@@ -128,7 +128,11 @@
         "virtual_lower_label": "Wirtualna dolna podkładka:",
         "virtual_upper_label": "Wirtualna górna podkładka:",
         "outlier_info": "Tolerancja: 0.06 mm",
-        "outlier_upper": "P. górne poza tolerancją:"
+        "outlier_upper": "P. górne poza tolerancją:",
+        "total_distribution": "Rozkład grubości łącznie: ",
+        "total_distribution_tooltip": "Histogram pokazujący rozkład grubości łącznie (podkładki + sprężyna) dla wszystkich pompowtryskiwaczy tego modelu.",
+        "thickness": "Łączna grubość podkładek i sprężyny (mm)",
+        "count": "Ilość sztuk"
     },
     "about": {
         "title": "Informacje",

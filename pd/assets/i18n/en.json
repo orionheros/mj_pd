@@ -121,7 +121,11 @@
         "virtual_lower": "Virtual Lower Thickness:",
         "virtual_upper": "Virtual Upper Thickness:",
         "outlier_info": "Tolerance: 0.06 mm",
-        "outlier_upper": "Up. Plates Out of Tolerance:"
+        "outlier_upper": "Up. Plates Out of Tolerance:",
+        "total_distribution": "Total Thickness Distribution: ",
+        "total_distribution_tooltip": "A histogram showing the distribution of total thickness (washers + spring) for all unit pumps of this model.",
+        "thickness": "Total thickness of washers and spring (mm)",
+        "count": "Count"
     },
     "about": {
         "title": "About",
